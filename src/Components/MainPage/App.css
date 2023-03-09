@@ -1,0 +1,6 @@
+/* FIXME Temporary styling for iframe*/
+iframe{
+    /*Dimensions same as canvas plus 42px for banner*/
+    width:500px;
+    height:542px;
+}
