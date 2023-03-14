@@ -1,9 +1,11 @@
 import './App.css';
+import * as ml5 from "ml5";
+import PoseRecognition from "./poseRecognition";
 
 function App() {
   return (
     <div className="App">
-      <iframe src="https://editor.p5js.org/TheKiromen/full/lYCE4VGoi"></iframe>
+        <PoseRecognition/>
     </div>
   );
 }
