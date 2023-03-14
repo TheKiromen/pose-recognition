@@ -1,5 +1,5 @@
 # Pose Recognition
-
+DODAJE ZMIANĘ 
 TODO
 
 
