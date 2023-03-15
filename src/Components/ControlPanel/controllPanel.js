@@ -1,27 +1,23 @@
 import {useEffect, useState} from "react";
-import {Navigate} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-function Panel() {
-    //Przykładowe sprawdzanie na przykładzie localStorage (do zmiany ~Wojtek)
-    const [authenticated, setauthenticated] = useState(null);
-    useEffect(() => {
-        const loggedUser = localStorage.getItem("authenticated");
-        console.log(loggedUser);
-        if (loggedUser) {
-            setauthenticated(loggedUser);
-        }
-    }, []);
-    //Jeśli nie zalogowany zrób redirect
-    if (!authenticated){
+//FIXME Change to use useState webhook
+
+const Panel = () => {
+    const test = localStorage.getItem("authenticated") === "true" ? true : false;
+    console.log(typeof(localStorage.getItem("authenticated")));
+    if (test) {
         //Redirect
-        return <Navigate replace to="/login" />
-    } else {
+        console.log(localStorage.getItem("authenticated"));
         return (
             <div className="Panel">
                 CONTROL PANEL
             </div>
         );
+
+    } else {
+        return <Navigate replace to="/login" />;
     }
-}
+};
 
 export default Panel;
