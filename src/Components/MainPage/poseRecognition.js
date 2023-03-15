@@ -7,6 +7,7 @@ function PoseRecognition() {
     let video;
     let poseNet;
     let currentPose;
+    let skeleton;
 
     const setup = (p5, canvasParentRef) => {
         //Create canvas and set parent component
@@ -23,30 +24,55 @@ function PoseRecognition() {
     };
 
     const draw = (p5) => {
-        //OBS 1920 x 1080 (16:9)
-        //CAM Mine 640 x 480 (4:3)
-        //CAN Pablo 640 x 480 (4:3)
-        //CAM Wojtke
-        //TODO Test webcam aspect ratios
-        // console.log(video.width + " " + video.height);
-
         //Flip image horizontally
         p5.scale(-1, 1);
         p5.translate(-640, 0);
         //Draw image from webcam
         p5.image(video, 0, 0, p5.width, p5.width * video.height / video.width);
 
+        //If pose was detected
         if(currentPose){
-            p5.fill("red");
-            p5.ellipse(currentPose.nose.x, currentPose.nose.y, 50);
+            //Draw the skeleton
+            for (let i = 0; i < skeleton.length; i++) {
+                //Get adjacent points
+                let a = skeleton[i][0];
+                let b = skeleton[i][1];
+                //Draw outline
+                p5.stroke("white");
+                p5.strokeWeight(5);
+                p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
+                //Draw line fill
+                p5.stroke("black");
+                p5.strokeWeight(3);
+                p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
+            }
+
+            //FIXME Combine this with drawing skeleton to loop only once?
+            //Draw characteristic points
+            p5.stroke("white");
+            p5.strokeWeight(2);
+            p5.fill('black');
+            for (let i = 0; i < currentPose.keypoints.length; i++) {
+                //Get x and y coordinates of keypoint
+                let x = currentPose.keypoints[i].position.x;
+                let y = currentPose.keypoints[i].position.y;
+                //Draw the keypoint
+                p5.ellipse(x, y, 16, 16);
+            }
         }
     };
 
     function poseDetected(poses){
-        //If there is at least 1 pose detected
-        if(poses.length > 0){
+        //If Pose detected pick first and check confidence score
+        //FIXME pick appropriate confidence score.
+        if(poses.length > 0 && poses[0].pose.score > 0.3){
+            //Set new pose
             currentPose = poses[0].pose;
-            console.log(currentPose);
+            skeleton = poses[0].skeleton;
+        }else{
+            //Clear data to prevent unnecessary computations
+            currentPose = null;
+            skeleton = null;
         }
     }
 
