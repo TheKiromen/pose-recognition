@@ -16,6 +16,9 @@ function PoseRecognition() {
         // p5.translate(video.width, 0);
         // p5.scale(-1, 1);
         p5.image(video,0,0,p5.width, p5.width * video.height / video.width);
+        p5.stroke("red");
+        p5.strokeWeight(3);
+        p5.line(0, 281, p5.width, 281);
     };
 
     return <Sketch setup={setup} draw={draw} />;
