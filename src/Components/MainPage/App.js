@@ -7,14 +7,14 @@ import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 // Elementy odpowiedzialne za Bootstrapa
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainNavbar from "../Navbar";
+import CreatorsFooter from "../Footer"
 
 function App() {
     return (
         // In order for return to accept more than 1 element you have to cheat it
         // and insert all elements into one div as parent, hence the comments must be as {/**/},
         // not just //. Btw I encourage you to describe the code with comments just like here pls.
-        //TODO Change website color palette
-        <div>
+        <div id="cover_everything">
             {/*Navigation between pages*/}
             <MainNavbar/>
 
@@ -27,6 +27,8 @@ function App() {
                     <Route path="*" element={<Navigate to="/"/>}/>
                 </Routes>
             </BrowserRouter>
+
+            <CreatorsFooter/>
         </div>
     );
 }

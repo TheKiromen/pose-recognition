@@ -1,0 +1,20 @@
+#bottom_of_the_page{
+    /* Put it on the very bottom of the screen*/
+    position: absolute;
+    bottom: 0px;
+
+    /* Make it look similar to the Navbar*/
+    width: 100%;
+    height: 56px;
+    background-color: var(--light-green);
+
+    /* Put text vertically and horizontally in the middle of the div*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a, #copyright{
+    margin-left: 25px;
+    color: black;
+}
