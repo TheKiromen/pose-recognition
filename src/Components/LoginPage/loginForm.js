@@ -22,31 +22,11 @@ const LoginForm = () => {
         }
     };
 
-    // We will have to connect those two returns somehow, so that the
-    // resulting wil be compatible with the code above. Requires Paweł + Tytus cooperation.
-    // return (
-    //     <div>
-    //         <form onSubmit={handleSubmit}>
-    //             <input
-    //                 type="text"
-    //                 name="Username"
-    //                 value={username}
-    //                 onChange={(e) => setusername(e.target.value)}
-    //             />
-    //             <input
-    //                 type="password"
-    //                 name="Password"
-    //                 onChange={(e) => setpassword(e.target.value)}
-    //             />
-    //             <input type="submit" value="Submit" />
-    //         </form>
-    //     </div>
-    // );
-
-    // Somewhat good-looking bootstrap template for logging (needs to be integrated further)
+    // Somewhat good-looking bootstrap template for logging
+    //TODO Wrap in container
     return (
         <div id="centering_id">
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
