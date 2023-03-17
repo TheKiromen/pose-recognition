@@ -5,6 +5,7 @@ import "../Components/navbarStyle.css";
 import Button from "react-bootstrap/Button";
 import {useNavigate} from "react-router";
 import { getAuth, signOut, onAuthStateChanged} from "firebase/auth";
+import {Navigate} from "react-router-dom";
 
 
 let isLogged = true;
@@ -13,7 +14,20 @@ const MainNavbar = () => {
     //Preparation of the code for further operation
     const navigate = useNavigate();
     //const test = localStorage.getItem("authenticated") === "true" ? true : false;
-    const test = true;
+    var test=true;
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        console.log("TEST")
+        if (user) {
+            console.log("Zalogowano")
+            test=true;
+        }
+        else {
+            test=false;
+        }
+        });
+
+
     if (test){
         isLogged = true;
     }else{
