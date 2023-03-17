@@ -2,12 +2,15 @@ import './App.css';
 import PoseRecognition from "./poseRecognition";
 import Login from "../LoginPage/loginForm";
 import ControlPanel from "../ControlPanel/controllPanel";
+import singinForm from "../SinginPage/singinForm";
+import Logout from "../LogoutPage/LogoutForm";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 
 // Elementy odpowiedzialne za Bootstrapa
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainNavbar from "../Navbar";
 import CreatorsFooter from "../Footer"
+import SinginForm from "../SinginPage/singinForm";
 
 function App() {
     return (
@@ -23,7 +26,9 @@ function App() {
                 <Routes>
                     <Route index element={<PoseRecognition/>}/>
                     <Route path="login" element={<Login/>}/>
+                    <Route path="singin" element={<SinginForm/>}/>
                     <Route path="controlPanel" element={<ControlPanel/>}/>
+                    <Route path="logout" element={<Logout/>}/>
                     <Route path="*" element={<Navigate to="/"/>}/>
                 </Routes>
             </BrowserRouter>
