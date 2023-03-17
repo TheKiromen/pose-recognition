@@ -19,10 +19,12 @@ function App() {
         // not just //. Btw I encourage you to describe the code with comments just like here pls.
         <div id="cover_everything">
             {/*Navigation between pages*/}
-            <MainNavbar/>
+
+            {/*Moved MainNavbar to BrowserRouter to be able to navigate after logout using Navigate*/}
 
             {/*Routing po komponentach*/}
             <BrowserRouter>
+                <MainNavbar/>
                 <Routes>
                     <Route index element={<PoseRecognition/>}/>
                     <Route path="login" element={<Login/>}/>
