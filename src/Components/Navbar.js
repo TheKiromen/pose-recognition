@@ -4,13 +4,30 @@ import Navbar from 'react-bootstrap/Navbar';
 import "../Components/navbarStyle.css";
 import Button from "react-bootstrap/Button";
 import {useNavigate} from "react-router";
+import { getAuth, signOut, onAuthStateChanged} from "firebase/auth";
+import {Navigate} from "react-router-dom";
+
 
 let isLogged = true;
 
 const MainNavbar = () => {
     //Preparation of the code for further operation
     const navigate = useNavigate();
-    const test = localStorage.getItem("authenticated") === "true" ? true : false;
+    //const test = localStorage.getItem("authenticated") === "true" ? true : false;
+    var test=true;
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        console.log("TEST")
+        if (user) {
+            console.log("Zalogowano")
+            test=true;
+        }
+        else {
+            test=false;
+        }
+        });
+
+
     if (test){
         isLogged = true;
     }else{
@@ -18,9 +35,17 @@ const MainNavbar = () => {
     }
 
     const HandleLogout = () => {
-        console.log("hello");
-        localStorage.setItem("authenticated", false)
-        navigate('/login');
+        console.log("logout");
+        //localStorage.setItem("authenticated", false)
+        const auth = getAuth();
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            navigate('/login');
+        }).catch((error) => {
+            // An error happened.
+        });
+
+
     };
     return (
         <Navbar bg="light" expand="lg">
