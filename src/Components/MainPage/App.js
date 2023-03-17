@@ -23,10 +23,12 @@ function App() {
 
         <div id="cover_everything">
             {/*Navigation between pages*/}
-            <MainNavbar/>
+
+            {/*Moved MainNavbar to BrowserRouter to be able to navigate after logout using Navigate*/}
 
             {/*Routing po komponentach*/}
             <BrowserRouter>
+                <MainNavbar/>
                 <Routes>
                     <Route index element={<PoseRecognition/>}/>
                     <Route path="login" element={<Login/>}/>

@@ -3,8 +3,25 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import "../Components/navbarStyle.css";
 import Button from "react-bootstrap/Button";
+import {useNavigate} from "react-router";
 
-function MainNavbar() {
+let isLogged = true;
+
+const MainNavbar = () => {
+    //Preparation of the code for further operation
+    const navigate = useNavigate();
+    const test = localStorage.getItem("authenticated") === "true" ? true : false;
+    if (test){
+        isLogged = true;
+    }else{
+        isLogged = false;
+    }
+
+    const HandleLogout = () => {
+        console.log("hello");
+        localStorage.setItem("authenticated", false)
+        navigate('/login');
+    };
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -20,9 +37,10 @@ function MainNavbar() {
 
                 {/* The way of being logged in will change so for now only a placeholder wil be put in place */}
                 <div id="logout">
-                    <Button onClick={() => localStorage.setItem("authenticated", false)}>
-                        Logout👋
-                    </Button>
+                    {isLogged === true ? <Button onClick={HandleLogout}>
+                            Logout👋
+                        </Button>
+                    : null}
                 </div>
             </Container>
         </Navbar>
