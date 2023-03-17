@@ -1,0 +1,49 @@
+.Panel{
+    display: flex;
+    height: 785px;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+#menu{
+    background-color: var(--green);
+    width: 17%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#menu div{
+    display: flex;
+    justify-content: center;
+}
+
+#figures{
+    width: 83%;
+    background-color: var(--light-green);
+    display: flex;
+    flex-direction: column;
+}
+#row_of_figures{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    height: 50%;
+}
+
+#row_of_figures div{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    max-width: 50%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: var(--green);
+    border-radius: 25px;
+}
+
+img{
+    max-height: 90%;
+    max-width: 90%;
+}

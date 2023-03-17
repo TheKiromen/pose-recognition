@@ -1,7 +1,9 @@
 #bottom_of_the_page{
     /* Put it on the very bottom of the screen*/
-    position: absolute;
-    bottom: 0px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    text-align: center;
 
     /* Make it look similar to the Navbar*/
     width: 100%;
@@ -12,9 +14,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
-a, #copyright{
-    margin-left: 25px;
+a{
+    margin-left: 7px;
     color: black;
+}
+
+#autors_half{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
+#half_of_footer{
+    flex-direction: row;
+    height: 28px;
 }
