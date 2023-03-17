@@ -4,8 +4,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "./loginForm.css";
 
-//import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import {auth} from "../Firebase/FirebaseConfig";
+import { getAuth, signInWithEmailAndPassword  } from "firebase/auth";
+import {app} from "../Firebase/FirebaseConfig";
+// import {auth, firestore} from "../Firebase/FirebaseConfig";
 
 
 
@@ -20,6 +21,27 @@ const LoginForm = () => {
     //const users = [{username: "admin", password: "admin"}];
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        let email = e.target[0].value;
+        let password = e.target[1].value;
+
+        const auth = getAuth(app);
+        //TODO get email and password from login form
+        signInWithEmailAndPassword (auth, email, password)
+            .then((userCredential) => {
+                //Save user
+                const user = userCredential.user;
+                //TODO If "Stay logged in" set session length to month
+                //TODO else session time one day/some hours
+                console.log(user);
+                navigate("/controlPanel");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error(errorCode + "/n" + errorMessage);
+            });
+
         //const account = users.find((user) => user.username === username);
         /*if (account && account.password === password) {
             localStorage.setItem("authenticated", true);
@@ -27,19 +49,19 @@ const LoginForm = () => {
             navigate("/controlPanel");
         }*/
 
-        //const auth = getAuth();
-        //console.log(auth,username,password)
-        auth.signInWithEmailAndPassword(username,password)
-            .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-                console.log("zalogowano")
-                // ...
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-            });
+        // const auth = getAuth();
+        // console.log(auth,username,password)
+        // auth.signInWithEmailAndPassword(username,password)
+        //     .then((userCredential) => {
+        //         // Signed in
+        //         const user = userCredential.user;
+        //         console.log("zalogowano")
+        //         // ...
+        //     })
+        //     .catch((error) => {
+        //         const errorCode = error.code;
+        //         const errorMessage = error.message;
+        //     });
     };
 
     // Somewhat good-looking bootstrap template for logging
