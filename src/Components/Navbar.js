@@ -13,7 +13,7 @@ function MainNavbar() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="login">Login</Nav.Link>
-                        <Nav.Link href="singin">Singin</Nav.Link>
+                        {/*<Nav.Link href="singin">Singin</Nav.Link>*/}
                         <Nav.Link href="controlPanel">Control Panel</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

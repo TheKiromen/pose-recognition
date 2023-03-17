@@ -4,23 +4,42 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "./loginForm.css";
 
+//import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../Firebase/FirebaseConfig";
+
+
+
 //const navigate = useNavigate();
 const LoginForm = () => {
     const navigate = useNavigate();
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
-    const [authenticated, setauthenticated] = useState(
+   /* const [authenticated, setauthenticated] = useState(
         localStorage.getItem(localStorage.getItem("authenticated") || false)
-    );
-    const users = [{username: "admin", password: "admin"}];
+    );*/
+    //const users = [{username: "admin", password: "admin"}];
     const handleSubmit = (e) => {
         e.preventDefault();
-        const account = users.find((user) => user.username === username);
-        if (account && account.password === password) {
+        //const account = users.find((user) => user.username === username);
+        /*if (account && account.password === password) {
             localStorage.setItem("authenticated", true);
             console.log(localStorage.getItem("authenticated"));
             navigate("/controlPanel");
-        }
+        }*/
+
+        //const auth = getAuth();
+        //console.log(auth,username,password)
+        auth.signInWithEmailAndPassword(username,password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                console.log("zalogowano")
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
     };
 
     // Somewhat good-looking bootstrap template for logging
