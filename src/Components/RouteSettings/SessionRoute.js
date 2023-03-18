@@ -1,4 +1,4 @@
-import { useUserAuth} from "./MonitorAuth";
+import { useUserAuth} from "../MonitorAuth";
 import React from 'react';
 import {Navigate, Outlet} from "react-router";
 

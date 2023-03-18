@@ -7,39 +7,6 @@ import {useNavigate} from "react-router";
 //FIXME Change to use useState webhook
 
 function Panel() {
-    /*const test = localStorage.getItem("authenticated") === "true" ? true : false;
-    console.log(typeof (localStorage.getItem("authenticated")));
-    if (test) {
-        //Redirect
-        console.log(localStorage.getItem("authenticated"));*/
-    /*const navigate = useNavigate();
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            console.log("Zalogowano w controlpanel")
-            const uid = user.uid;
-            console.log(uid);
-            //return <Navigate replace to="/login"/>;
-            //navigate("/login");
-
-
-        } else {
-            // User is signed out
-            console.log("niezalogowano w controlpanel");
-            navigate("/login");
-            //return <Navigate replace to="/login"/>;
-            //Redirect
-            return (
-                <div className="Panel">
-                    CONTROL PANEL
-                </div>
-            );
-        }
-    });*/
-
-
         return (
             // For the margin bottom to work there has to be a div with it and another
             // div encapsulating div enlarged in this way. Both have to be flex
@@ -96,12 +63,6 @@ function Panel() {
                 </div>
             </div>
         );
-
-    /*} else {
-        return <Navigate replace to="/login"/>;
-    }*/
-
-
 };
 
 export default Panel;
