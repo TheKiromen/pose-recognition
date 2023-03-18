@@ -3,34 +3,17 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import "../Components/navbarStyle.css";
 import Button from "react-bootstrap/Button";
-import {useNavigate} from "react-router";
+import {useNavigate, Outlet} from "react-router";
 import { getAuth, signOut, onAuthStateChanged} from "firebase/auth";
 import {Navigate} from "react-router-dom";
+import {useUserAuth} from "./MonitorAuth";
 
-
-let isLogged = true;
+//FIXME Try to fix logout button from flickering when your session is active and you navigate through application
 
 const MainNavbar = () => {
     //Preparation of the code for further operation
     const navigate = useNavigate();
-    //const test = localStorage.getItem("authenticated") === "true" ? true : false;
-    //var test=true;
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-        console.log("TEST")
-        if (user) {
-            console.log("Zalogowano");
-            console.log(isLogged);
-            isLogged=true;
-            console.log(isLogged);
-        }
-        else {
-            isLogged=false;
-        }
-        });
-
-
-
+    const logged = useUserAuth();
 
     const HandleLogout = () => {
         console.log("logout");
@@ -60,7 +43,7 @@ const MainNavbar = () => {
 
                 {/* The way of being logged in will change so for now only a placeholder wil be put in place */}
                 <div id="logout">
-                    {isLogged === true ? <Button onClick={HandleLogout}>
+                    {logged ? <Button onClick={HandleLogout}>
                             Logout👋
                         </Button>
                     : null}
