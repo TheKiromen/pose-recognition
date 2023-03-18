@@ -2,21 +2,19 @@
     display: flex;
     align-items: stretch;
     justify-content: space-between;
+    width: 100%;
 }
 
 #encapsulating{
     display: flex;
     width: 100%;
-
-    /* I think fixed height is better than dynamic (XX%)
-    861 px is 937(whole screen)-76(navbar)
-    This ensures that it will leave 20px space between footer and panel*/
-    height: 861px;
+    height: 881px;
 }
 
 #enlarged{
     display: flex;
-    margin-bottom: 76px;
+    margin-bottom: 56px;
+    width: 100%;
 }
 
 #menu{
@@ -34,7 +32,6 @@
 
 #figures{
     width: 83%;
-    background-color: var(--light-green);
     display: flex;
     flex-direction: column;
 }
@@ -53,7 +50,7 @@
     max-width: 50%;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: var(--green);
+    background-color: var(--light-green);
     border-radius: 25px;
 }
 
