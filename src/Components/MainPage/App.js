@@ -11,8 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MainNavbar from "../Navbar";
 import CreatorsFooter from "../Footer"
 import SinginForm from "../SinginPage/singinForm";
-import ProtectedRouted from "../ProtectedRouted";
-import SessionRoute from "../SessionRoute";
+import ProtectedRouted from "../RouteSettings/ProtectedRouted";
+import SessionRoute from "../RouteSettings/SessionRoute";
 
 
 

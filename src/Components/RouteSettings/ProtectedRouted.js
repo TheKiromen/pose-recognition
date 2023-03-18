@@ -1,7 +1,7 @@
 import {Navigate, Outlet} from "react-router";
 import { getAuth, signOut, onAuthStateChanged} from "firebase/auth";
 import React from "react";
-import { useUserAuth} from "./MonitorAuth";
+import { useUserAuth} from "../MonitorAuth";
 
 const ProtectedRouted = () => {
     //Checking if user id is visible, can be improved
