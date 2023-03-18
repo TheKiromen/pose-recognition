@@ -14,25 +14,23 @@ const MainNavbar = () => {
     //Preparation of the code for further operation
     const navigate = useNavigate();
     //const test = localStorage.getItem("authenticated") === "true" ? true : false;
-    var test=true;
+    //var test=true;
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
         console.log("TEST")
         if (user) {
-            console.log("Zalogowano")
-            test=true;
+            console.log("Zalogowano");
+            console.log(isLogged);
+            isLogged=true;
+            console.log(isLogged);
         }
         else {
-            test=false;
+            isLogged=false;
         }
         });
 
 
-    if (test){
-        isLogged = true;
-    }else{
-        isLogged = false;
-    }
+
 
     const HandleLogout = () => {
         console.log("logout");

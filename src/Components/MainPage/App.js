@@ -11,6 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MainNavbar from "../Navbar";
 import CreatorsFooter from "../Footer"
 import SinginForm from "../SinginPage/singinForm";
+import ProtectedRouted from "../ProtectedRouted";
+import SessionRoute from "../SessionRoute";
 
 
 
@@ -31,10 +33,15 @@ function App() {
                 <MainNavbar/>
                 <Routes>
                     <Route index element={<PoseRecognition/>}/>
-                    <Route path="login" element={<Login/>}/>
-                    <Route path="singin" element={<SinginForm/>}/>
-                    <Route path="controlPanel" element={<ControlPanel/>}/>
-                    <Route path="logout" element={<Logout/>}/>
+                    <Route element={<SessionRoute />}>
+                        <Route path="/login" element={<Login/>}/>
+                    </Route>
+                    <Route path="/singin" element={<SinginForm/>}/>
+                    {/*<Route path="controlPanel" element={<ControlPanel/>}/>*/}
+                    <Route element={<ProtectedRouted />}>
+                        <Route path="/controlPanel" element={<ControlPanel />}/>
+                    </Route>
+                    <Route path="/logout" element={<Logout/>}/>
                     <Route path="*" element={<Navigate to="/"/>}/>
                 </Routes>
             </BrowserRouter>
