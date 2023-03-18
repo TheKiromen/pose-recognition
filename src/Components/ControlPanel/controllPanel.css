@@ -1,8 +1,22 @@
 .Panel{
     display: flex;
-    height: 785px;
     align-items: stretch;
     justify-content: space-between;
+}
+
+#encapsulating{
+    display: flex;
+    width: 100%;
+
+    /* I think fixed height is better than dynamic (XX%)
+    861 px is 937(whole screen)-76(navbar)
+    This ensures that it will leave 20px space between footer and panel*/
+    height: 861px;
+}
+
+#enlarged{
+    display: flex;
+    margin-bottom: 76px;
 }
 
 #menu{
