@@ -22,6 +22,10 @@ a{
     color: black;
 }
 
+a:hover {
+    color: var(--super-light-green);
+}
+
 #autors_half{
     display: flex;
     flex-direction: row;
