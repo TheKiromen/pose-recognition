@@ -32,7 +32,7 @@ function Panel() {
                         </div>
                         <div id="figures">
                             {/*first row with 2 items inside*/}
-                            <div id="row_of_figures">
+                            <div className="row_of_figures">
                                 <div>
                                     <img
                                         src={"https://www.researchgate.net/publication/337727529/figure/fig4/AS:941575693684771@1601500547534/Annual-rainfall-in-the-MDB-1900-2018-Source-BOM-Available-at.png"}/>
@@ -46,7 +46,7 @@ function Panel() {
                             </div>
 
                             {/*second row with 2 items inside*/}
-                            <div id="row_of_figures">
+                            <div className="row_of_figures">
                                 <div>
                                     <img
                                         src={"https://www.researchgate.net/publication/337727529/figure/fig4/AS:941575693684771@1601500547534/Annual-rainfall-in-the-MDB-1900-2018-Source-BOM-Available-at.png"}/>
