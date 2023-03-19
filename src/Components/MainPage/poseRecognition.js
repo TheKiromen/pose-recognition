@@ -3,7 +3,7 @@ import Sketch from "react-p5";
 import * as ml5 from "ml5";
 import JSONResult from './ymca.json';
 
-
+//FIXME Load model on app startup instead of entering panel
 function PoseRecognition() {
 
     let video;
@@ -12,7 +12,10 @@ function PoseRecognition() {
     let currentPose;
     let skeleton;
     const options = {
-        dataUrl : JSONResult,
+        //FIXME get path to file in public folder?
+
+        // dataUrl : JSONResult,
+        // dataUrl :'./ymca.json',
         inputs: 34,
         outputs: 1,
         task: 'classification',
@@ -25,7 +28,7 @@ function PoseRecognition() {
     //     weights: 'model.weights.bin',
     // };
     const trainingSettings = {
-        epochs: 1
+        epochs: 100
         // epochs: 32,
         // batchSize: 12
     }
@@ -60,14 +63,26 @@ function PoseRecognition() {
         //Hide webcam preview
         video.hide();
 
+
         //FIXME Move to useEffect to initialize after loading?
-        network = ml5.neuralNetwork(options, () => {
-            console.log("Model Loaded!");
-            //FIXME gets stuck and cant do anything
+        // network = ml5.neuralNetwork(options, () => {
+        //     console.log("Model Loaded!");
+        //     //FIXME gets stuck and cant do anything
+        //
+        //     // network.normalizeData();
+        //     // console.log("Data Normalized!");
+        //     // network.train(trainingSettings, () => console.log("Finished Training"));
+        //
+        //     network.loadData("./ymca.json", () => console.log("Data Loaded"));
+        // });
+
+        network = ml5.neuralNetwork(options);
+        network.loadData("./ymca.json", () => {
+            console.log("Data Loaded")
             network.normalizeData();
-            console.log("Data Normalized!");
             network.train(trainingSettings, () => console.log("Finished Training"));
         });
+
 
         //Initialize poseNet;
         poseNet = ml5.poseNet(video, () => console.log("PoseNet Ready!"));
@@ -76,6 +91,10 @@ function PoseRecognition() {
     };
 
     const draw = (p5) => {
+        //Flip the image.
+        p5.scale(-1, 1);
+        p5.translate(-p5.width, 0);
+
         //Draw image from webcam
         p5.image(video, 0, 0, p5.width, p5.width * video.height / video.width);
 
@@ -108,14 +127,13 @@ function PoseRecognition() {
                 p5.ellipse(x, y, 16, 16);
             }
 
-            //Flip the image.
-            p5.scale(-1, 1);
+
         }
     };
 
     function poseDetected(poses){
         //If Pose detected pick first and check confidence score
-        if(poses.length > 0 && poses[0].pose.score > 0.8){
+        if(poses.length > 0 && poses[0].pose.score > 0.6){
             //Set new pose
             currentPose = poses[0].pose;
             skeleton = poses[0].skeleton;
@@ -129,7 +147,7 @@ function PoseRecognition() {
                 data.push(y);
             }
             //FIXME Move classification elsewhere
-            network.classify(data, (err, res) => console.log(res));
+            network.classify(data, (err, res) => console.log(res[0].label + " | " + res[0].confidence));
         }else{
             //Clear data to prevent unnecessary computations
             currentPose = null;
