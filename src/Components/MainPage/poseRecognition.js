@@ -10,18 +10,42 @@ function PoseRecognition() {
     let currentPose;
     let skeleton;
     const options = {
-        dataUrl : 'src/Components/MainPage/ymca.json',
+        //FIXME Move model data to 'public' folder so it is visible by the website?
+        // If this doesnt work host it on some drive so that model can download it?
+
+        // dataUrl : 'src/Components/MainPage/ymca.json',
         inputs: 34,
         outputs: 1,
         task: 'classification',
         debug: true
     }
-    let data;
+    let data = [];
     // const modelInfo = {
     //     model: 'model.json',
     //     metadata: 'model_meta.json',
     //     weights: 'model.weights.bin',
     // };
+
+    const collectData = (p5) =>{
+        if(p5.keyCode === p5.ENTER){
+            //FIXME temporary data collection for debugging purposes
+            setTimeout(()=>{
+                console.log("COLLECTING!");
+                //Collects single pose
+                for (let i = 0; i < currentPose.keypoints.length; i++) {
+                    //Get x and y coordinates of keypoint
+                    let x = currentPose.keypoints[i].position.x;
+                    let y = currentPose.keypoints[i].position.y;
+                    //Draw the keypoint
+                    data.push(x);
+                    data.push(y);
+                }
+                network.addData(data,["Y"]);
+                network.saveData();
+                console.log("FINISHED");
+            },3000);
+        }
+    };
 
     const setup = (p5, canvasParentRef) => {
         //Create canvas and set parent component
@@ -92,7 +116,7 @@ function PoseRecognition() {
         }
     }
 
-    return <Sketch setup={setup} draw={draw}/>;
+    return <Sketch setup={setup} draw={draw} keyPressed={collectData}/>;
 }
 
 export default PoseRecognition;
