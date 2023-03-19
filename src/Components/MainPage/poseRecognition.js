@@ -1,7 +1,7 @@
 import React from "react";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
-import JSONResult from './ymca.json';
+
 
 //FIXME Load model on app startup instead of entering panel
 function PoseRecognition() {
@@ -11,22 +11,20 @@ function PoseRecognition() {
     let network;
     let currentPose;
     let skeleton;
-    const options = {
-        //FIXME get path to file in public folder?
 
-        // dataUrl : JSONResult,
-        // dataUrl :'./ymca.json',
+    const options = {
         inputs: 34,
         outputs: 1,
         task: 'classification',
         debug: true
     }
     let data = [];
-    // const modelInfo = {
-    //     model: 'model.json',
-    //     metadata: 'model_meta.json',
-    //     weights: 'model.weights.bin',
-    // };
+    const modelInfo = {
+        model: 'ModelData/model.json',
+        metadata: 'ModelData/model_meta.json',
+        weights: 'ModelData/model.weights.bin',
+    };
+
     const trainingSettings = {
         epochs: 100
         // epochs: 32,
@@ -63,25 +61,17 @@ function PoseRecognition() {
         //Hide webcam preview
         video.hide();
 
-
-        //FIXME Move to useEffect to initialize after loading?
-        // network = ml5.neuralNetwork(options, () => {
-        //     console.log("Model Loaded!");
-        //     //FIXME gets stuck and cant do anything
-        //
-        //     // network.normalizeData();
-        //     // console.log("Data Normalized!");
-        //     // network.train(trainingSettings, () => console.log("Finished Training"));
-        //
-        //     network.loadData("./ymca.json", () => console.log("Data Loaded"));
-        // });
-
+        //Initialize network
         network = ml5.neuralNetwork(options);
-        network.loadData("./ymca.json", () => {
-            console.log("Data Loaded")
-            network.normalizeData();
-            network.train(trainingSettings, () => console.log("Finished Training"));
-        });
+
+        //Load ready model
+        network.load(modelInfo, () => console.log("Model loaded"));
+
+        // network.loadData("ModelData/ymca.json", () => {
+        //     console.log("Data Loaded")
+        //     network.normalizeData();
+        //     network.train(trainingSettings, () => console.log("Finished Training"));
+        // });
 
 
         //Initialize poseNet;
