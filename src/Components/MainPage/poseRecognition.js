@@ -10,7 +10,7 @@ function PoseRecognition() {
     let currentPose;
     let skeleton;
     const options = {
-        dataUrl : 'ml5Model/model.json',
+        dataUrl : 'src/Components/MainPage/ymca.json',
         inputs: 34,
         outputs: 1,
         task: 'classification',
