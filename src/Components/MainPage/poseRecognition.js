@@ -6,8 +6,22 @@ function PoseRecognition() {
 
     let video;
     let poseNet;
+    let network;
     let currentPose;
     let skeleton;
+    const options = {
+        dataUrl : 'ml5Model/model.json',
+        inputs: 34,
+        outputs: 1,
+        task: 'classification',
+        debug: true
+    }
+    let data;
+    // const modelInfo = {
+    //     model: 'model.json',
+    //     metadata: 'model_meta.json',
+    //     weights: 'model.weights.bin',
+    // };
 
     const setup = (p5, canvasParentRef) => {
         //Create canvas and set parent component
@@ -21,12 +35,12 @@ function PoseRecognition() {
         poseNet = ml5.poseNet(video, () => console.log("PoseNet Ready!"));
         //Setup callback on pose detection
         poseNet.on('pose', poseDetected);
+
+        network = ml5.neuralNetwork(options);
+        // network.loadData(modelInfo, () => console.log("Model Loaded!"));
     };
 
     const draw = (p5) => {
-        //Flip image horizontally
-        p5.scale(-1, 1);
-        p5.translate(-640, 0);
         //Draw image from webcam
         p5.image(video, 0, 0, p5.width, p5.width * video.height / video.width);
 
@@ -47,7 +61,6 @@ function PoseRecognition() {
                 p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
             }
 
-            //FIXME Combine this with drawing skeleton to loop only once?
             //Draw characteristic points
             p5.stroke("white");
             p5.strokeWeight(2);
@@ -59,6 +72,9 @@ function PoseRecognition() {
                 //Draw the keypoint
                 p5.ellipse(x, y, 16, 16);
             }
+
+            //Flip the image.
+            p5.scale(-1, 1);
         }
     };
 
@@ -76,7 +92,7 @@ function PoseRecognition() {
         }
     }
 
-    return <Sketch setup={setup} draw={draw} />;
+    return <Sketch setup={setup} draw={draw}/>;
 }
 
 export default PoseRecognition;
