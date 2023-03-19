@@ -1,6 +1,8 @@
 import React from "react";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
+import JSONResult from './ymca.json';
+
 
 function PoseRecognition() {
 
@@ -10,10 +12,7 @@ function PoseRecognition() {
     let currentPose;
     let skeleton;
     const options = {
-        //FIXME Move model data to 'public' folder so it is visible by the website?
-        // If this doesnt work host it on some drive so that model can download it?
-
-        // dataUrl : 'src/Components/MainPage/ymca.json',
+        dataUrl : JSONResult,
         inputs: 34,
         outputs: 1,
         task: 'classification',
@@ -25,6 +24,11 @@ function PoseRecognition() {
     //     metadata: 'model_meta.json',
     //     weights: 'model.weights.bin',
     // };
+    const trainingSettings = {
+        epochs: 1
+        // epochs: 32,
+        // batchSize: 12
+    }
 
     const collectData = (p5) =>{
         if(p5.keyCode === p5.ENTER){
@@ -47,6 +51,7 @@ function PoseRecognition() {
         }
     };
 
+
     const setup = (p5, canvasParentRef) => {
         //Create canvas and set parent component
         p5.createCanvas(640, 480).parent(canvasParentRef);
@@ -55,13 +60,19 @@ function PoseRecognition() {
         //Hide webcam preview
         video.hide();
 
+        //FIXME Move to useEffect to initialize after loading?
+        network = ml5.neuralNetwork(options, () => {
+            console.log("Model Loaded!");
+            //FIXME gets stuck and cant do anything
+            network.normalizeData();
+            console.log("Data Normalized!");
+            network.train(trainingSettings, () => console.log("Finished Training"));
+        });
+
         //Initialize poseNet;
         poseNet = ml5.poseNet(video, () => console.log("PoseNet Ready!"));
         //Setup callback on pose detection
         poseNet.on('pose', poseDetected);
-
-        network = ml5.neuralNetwork(options);
-        // network.loadData(modelInfo, () => console.log("Model Loaded!"));
     };
 
     const draw = (p5) => {
@@ -104,11 +115,21 @@ function PoseRecognition() {
 
     function poseDetected(poses){
         //If Pose detected pick first and check confidence score
-        //FIXME pick appropriate confidence score.
-        if(poses.length > 0 && poses[0].pose.score > 0.3){
+        if(poses.length > 0 && poses[0].pose.score > 0.8){
             //Set new pose
             currentPose = poses[0].pose;
             skeleton = poses[0].skeleton;
+
+            data = [];
+            for (let i = 0; i < currentPose.keypoints.length; i++) {
+                //Get x and y coordinates of keypoint
+                let x = currentPose.keypoints[i].position.x;
+                let y = currentPose.keypoints[i].position.y;
+                data.push(x);
+                data.push(y);
+            }
+            //FIXME Move classification elsewhere
+            network.classify(data, (err, res) => console.log(res));
         }else{
             //Clear data to prevent unnecessary computations
             currentPose = null;
