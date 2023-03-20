@@ -6,6 +6,7 @@ import Logout from "../LogoutPage/LogoutForm";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {ModelContext} from "../Context/ModelContext";
 
+
 // Elementy odpowiedzialne za Bootstrapa
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainNavbar from "../Navbar";
@@ -16,6 +17,7 @@ import {useState} from "react";
 
 function App() {
     const [test, setTest] = useState("Initial Value");
+
     return (
 
             <ModelContext.Provider value={{test, setTest}}>
