@@ -6,14 +6,12 @@ import Button from "react-bootstrap/Button";
 import {useNavigate, Outlet} from "react-router";
 import {Link} from "react-router-dom";
 import { getAuth, signOut, onAuthStateChanged} from "firebase/auth";
-import {Navigate} from "react-router-dom";
 import {useUserAuth} from "./MonitorAuth";
 
 //FIXME Try to fix logout button from flickering when your session is active and you navigate through application
 
 const MainNavbar = () => {
     //Preparation of the code for further operation
-    const navigate = useNavigate();
     const logged = useUserAuth();
 
     const HandleLogout = () => {
@@ -22,8 +20,7 @@ const MainNavbar = () => {
         const auth = getAuth();
         signOut(auth).then(() => {
             // Sign-out successful.
-            <Link to="/login"/>
-            //navigate('/login');
+            //<Link to="/login"/>
         }).catch((error) => {
             // An error happened.
         });
@@ -33,22 +30,25 @@ const MainNavbar = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Link to="/">Pose recognition</Link>
+                <Link to="/"><Button variant="dark">Pose Recognition</Button></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Link to="/login">Login</Link>
                         {/*<Nav.Link href="singin">Singin</Nav.Link>*/}
-                        <Link to="/controlPanel">Control Panel</Link>
+                        <Link to="/controlPanel"><Button variant="dark">Control Panel</Button></Link>
                     </Nav>
                 </Navbar.Collapse>
 
                 {/* The way of being logged in will change so for now only a placeholder wil be put in place */}
                 <div id="logout">
-                    {logged ? <Button onClick={HandleLogout}>
+                    {logged ? <Button onClick={HandleLogout} variant="danger">
                             Logout👋
                         </Button>
-                    : null}
+                    : <Link to="/Login"><Button variant="success">
+                            Login👋
+                        </Button>
+                        </Link>
+                    }
                 </div>
             </Container>
         </Navbar>

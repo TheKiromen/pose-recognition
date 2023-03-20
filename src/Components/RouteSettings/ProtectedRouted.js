@@ -1,5 +1,4 @@
 import {Navigate, Outlet} from "react-router";
-import { getAuth, signOut, onAuthStateChanged} from "firebase/auth";
 import React from "react";
 import { useUserAuth} from "../MonitorAuth";
 
@@ -10,7 +9,7 @@ const ProtectedRouted = () => {
     console.log("Wartosc logged: ", logged);
 
     return typeof logged === 'undefined' ? (
-        null  //You can add a loading animation here
+        null  //Replace with loading button
     ) : logged ? (
         <Outlet />
     ) : (

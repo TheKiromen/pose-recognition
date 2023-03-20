@@ -1,7 +1,7 @@
-import {useNavigate} from "react-router";
 import {useState, useEffect} from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import {Link} from "react-router-dom";
 import "./loginForm.css";
 
 import { getAuth, signInWithEmailAndPassword,onAuthStateChanged  } from "firebase/auth";
@@ -12,7 +12,6 @@ const LoginForm = () => {
 
     const auth = getAuth(app);
 
-    const navigate = useNavigate();
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
    /* const [authenticated, setauthenticated] = useState(
@@ -34,7 +33,7 @@ const LoginForm = () => {
                 //TODO If "Stay logged in" set session length to month
                 //TODO else session time one day/some hours
                 console.log(user);
-                navigate("/controlPanel");
+                <Link to="/controlPanel"/>
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -79,7 +78,7 @@ const LoginForm = () => {
                     </Form.Group>
 
                     <div id="centering_id">
-                        <Button variant="primary" type="submit">Login</Button>
+                        <Button variant="info" type="submit">Login</Button>
                     </div>
                 </Form>
             </div>
