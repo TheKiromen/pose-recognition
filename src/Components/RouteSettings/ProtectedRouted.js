@@ -9,7 +9,7 @@ const ProtectedRouted = () => {
     console.log("Wartosc logged: ", logged);
 
     return typeof logged === 'undefined' ? (
-        null  //Replace with loading button
+        null  //You can add a loading animation here
     ) : logged ? (
         <Outlet />
     ) : (

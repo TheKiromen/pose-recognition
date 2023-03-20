@@ -7,7 +7,7 @@ export const SessionRoute = () => {
     const logged = useUserAuth();
 
     return typeof logged === 'undefined' ? (
-        null //Replace with loading button
+        null //You can add a loading animation here
     ) : logged ? (
         <Navigate to="/controlPanel" />
     ) : (

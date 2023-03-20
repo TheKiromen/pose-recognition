@@ -18,49 +18,26 @@ function App() {
     const [test, setTest] = useState("Initial Value");
 
     return (
-
-            <ModelContext.Provider value={{test, setTest}}>
-                <BrowserRouter>
-                    <div id="cover_everything">
-                    <MainNavbar/>
-                    <Routes>
-                        <Route index element={<PoseRecognition/>}/>
-                        <Route element={<SessionRoute />}>
-                            <Route path="/login" element={<Login/>}/>
-                        </Route>
-                        {/*<Route path="controlPanel" element={<ControlPanel/>}/>*/}
-                        <Route element={<ProtectedRouted />}>
-                            <Route path="/controlPanel" element={<ControlPanel />}/>
-                        </Route>
-                        <Route path="/logout" element={<Logout/>}/>
-                        <Route path="*" element={<Navigate to="/"/>}/>
-                    </Routes>
-                    </div>
-                </BrowserRouter>
-                <CreatorsFooter/>
-            </ModelContext.Provider>
-
-            {/*Routing po komponentach*/}
-            <ModelContext.Provider value={"Test"}>
-                <BrowserRouter>
-                    <MainNavbar/>
-                    <Routes>
-                        <Route index element={<PoseRecognition/>}/>
-                        <Route element={<SessionRoute />}>
-                            <Route path="/login" element={<Login/>}/>
-                        </Route>
-                        <Route path="/singin" element={<SinginForm/>}/>
-                        {/*<Route path="controlPanel" element={<ControlPanel/>}/>*/}
-                        <Route element={<ProtectedRouted />}>
-                            <Route path="/controlPanel" element={<ControlPanel />}/>
-                        </Route>
-                        <Route path="/logout" element={<Logout/>}/>
-                        <Route path="*" element={<Navigate to="/"/>}/>
-                    </Routes>
-                </BrowserRouter>
-            </ModelContext.Provider>
-
-
+		<ModelContext.Provider value={{test, setTest}}>
+			<BrowserRouter>
+				<div id="cover_everything">
+				<MainNavbar/>
+				<Routes>
+					<Route index element={<PoseRecognition/>}/>
+					<Route element={<SessionRoute />}>
+						<Route path="/login" element={<Login/>}/>
+					</Route>
+					{/*<Route path="controlPanel" element={<ControlPanel/>}/>*/}
+					<Route element={<ProtectedRouted />}>
+						<Route path="/controlPanel" element={<ControlPanel />}/>
+					</Route>
+					<Route path="/logout" element={<Logout/>}/>
+					<Route path="*" element={<Navigate to="/"/>}/>
+				</Routes>
+				</div>
+			</BrowserRouter>
+			<CreatorsFooter/>
+		</ModelContext.Provider>
     );
 }
 
