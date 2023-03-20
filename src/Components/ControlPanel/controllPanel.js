@@ -30,9 +30,8 @@ function Panel() {
                             <div>
                                 Hotel: Trivago
                             </div>
-                            <div>
-                                {useContext(ModelContext)}
-                            </div>
+
+
                         </div>
                         <div id="figures">
                             {/*first row with 2 items inside*/}
