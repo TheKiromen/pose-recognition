@@ -38,6 +38,7 @@ function Panel() {
                             </div>
                             <button onClick={() => obj.setTest("New Value")}>CLICK</button>
 
+
                         </div>
                         <div id="figures">
                             {/*first row with 2 items inside*/}

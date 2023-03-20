@@ -6,7 +6,6 @@ import Logout from "../LogoutPage/LogoutForm";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {ModelContext} from "../Context/ModelContext";
 
-
 // Elementy odpowiedzialne za Bootstrapa
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainNavbar from "../Navbar";
@@ -41,6 +40,25 @@ function App() {
                 <CreatorsFooter/>
             </ModelContext.Provider>
 
+            {/*Routing po komponentach*/}
+            <ModelContext.Provider value={"Test"}>
+                <BrowserRouter>
+                    <MainNavbar/>
+                    <Routes>
+                        <Route index element={<PoseRecognition/>}/>
+                        <Route element={<SessionRoute />}>
+                            <Route path="/login" element={<Login/>}/>
+                        </Route>
+                        <Route path="/singin" element={<SinginForm/>}/>
+                        {/*<Route path="controlPanel" element={<ControlPanel/>}/>*/}
+                        <Route element={<ProtectedRouted />}>
+                            <Route path="/controlPanel" element={<ControlPanel />}/>
+                        </Route>
+                        <Route path="/logout" element={<Logout/>}/>
+                        <Route path="*" element={<Navigate to="/"/>}/>
+                    </Routes>
+                </BrowserRouter>
+            </ModelContext.Provider>
 
 
     );
