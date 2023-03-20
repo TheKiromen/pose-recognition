@@ -21,7 +21,8 @@ const MainNavbar = () => {
         const auth = getAuth();
         signOut(auth).then(() => {
             // Sign-out successful.
-            navigate('/login');
+            <Link to="/login"/>
+            //navigate('/login');
         }).catch((error) => {
             // An error happened.
         });
