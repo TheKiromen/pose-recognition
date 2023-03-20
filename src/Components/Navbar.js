@@ -30,13 +30,12 @@ const MainNavbar = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Link to="/">Pose recognition</Link>
+                <Link to="/"><Button variant="dark">Pose Recognition</Button></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Link to="/login">Login</Link>
                         {/*<Nav.Link href="singin">Singin</Nav.Link>*/}
-                        <Link to="/controlPanel">Control Panel</Link>
+                        <Link to="/controlPanel"><Button variant="dark">Control Panel</Button></Link>
                     </Nav>
                 </Navbar.Collapse>
 
