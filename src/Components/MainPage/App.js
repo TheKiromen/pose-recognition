@@ -13,22 +13,20 @@ import CreatorsFooter from "../Footer"
 import SinginForm from "../SinginPage/singinForm";
 import ProtectedRouted from "../RouteSettings/ProtectedRouted";
 import SessionRoute from "../RouteSettings/SessionRoute";
+import {useState} from "react";
 
 function App() {
+    const [test, setTest] = useState("dziala");
     return (
-        // In order for return to accept more than 1 element you have to cheat it
-        // and insert all elements into one div as parent, hence the comments must be as {/**/},
-        // not just //. Btw I encourage you to describe the code with comments just like here pls.
 
-        <div id="cover_everything">
-            {/*Navigation between pages*/}
-
-            {/*Moved MainNavbar to BrowserRouter to be able to navigate after logout using Navigate*/}
-
-            {/*Routing po komponentach*/}
             <ModelContext.Provider value={"Test"}>
                 <BrowserRouter>
+                    <div id="cover_everything">
                     <MainNavbar/>
+                        <button onClick={() => setTest("Bojtek")}>Helo Karthus</button>
+                        <div>
+                            {test}
+                        </div>
                     <Routes>
                         <Route index element={<PoseRecognition/>}/>
                         <Route element={<SessionRoute />}>
@@ -42,11 +40,13 @@ function App() {
                         <Route path="/logout" element={<Logout/>}/>
                         <Route path="*" element={<Navigate to="/"/>}/>
                     </Routes>
+                    </div>
                 </BrowserRouter>
+                <CreatorsFooter/>
             </ModelContext.Provider>
 
-            <CreatorsFooter/>
-        </div>
+
+
     );
 }
 
