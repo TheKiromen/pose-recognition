@@ -19,7 +19,7 @@ const MainNavbar = () => {
         const auth = getAuth();
         signOut(auth).then(() => {
             // Sign-out successful.
-            //<Link to="/login"/>
+            <Link to="/login"/>
         }).catch((error) => {
             // An error happened.
         });
