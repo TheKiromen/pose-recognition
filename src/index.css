@@ -1,13 +1,54 @@
+/*VARIABLES*/
+:root{
+    --super-light-green: #EDF1D6;
+    --light-green: #9DC08B;
+    --green: #609966;
+    --dark-green: #40513B;
+}
+
+/*Styles*/
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* setting marked as !important ignores being overwritten by setting from reboot.scss*/
+    background: var(--super-light-green) !important;
+}
+
+html, body, #root, #cover_everything{
+    /* Now it covers the whole screen - html has to be 100% too,
+    otherwise body has 100% of html which has 60% of screen
+    resulting in body having 60% of the screen*/
+    margin: 0;
+    height: 100%;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Some elements are in dire need of being in the middle*/
+.react-p5, #centering_id {
+    display: flex;
+    justify-content: center;
+    height: max-content;
+    align-content: flex-end;
+}
+
+#defaultCanvas0{
+    margin-top: 20px;
+    margin-bottom: 76px;
+}
+
+#root{
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
 }

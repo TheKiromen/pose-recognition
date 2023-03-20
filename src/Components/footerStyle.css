@@ -1,0 +1,39 @@
+#bottom_of_the_page{
+    /* Put it on the very bottom of the screen*/
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+
+    /* Make it look similar to the Navbar*/
+    width: 100%;
+    height: 56px;
+    background-color: var(--light-green);
+
+    /* Put text vertically and horizontally in the middle of the div*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+a{
+    margin-left: 7px;
+    color: black;
+}
+
+a:hover {
+    color: var(--super-light-green);
+}
+
+#autors_half{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
+#half_of_footer{
+    flex-direction: row;
+    height: 28px;
+}
