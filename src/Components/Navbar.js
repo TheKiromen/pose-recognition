@@ -4,7 +4,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import "../Components/navbarStyle.css";
 import Button from "react-bootstrap/Button";
 import {useNavigate, Outlet} from "react-router";
-import {Link} from "react-router-dom";
 import { getAuth, signOut, onAuthStateChanged} from "firebase/auth";
 import {useUserAuth} from "./MonitorAuth";
 
@@ -30,13 +29,13 @@ const MainNavbar = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Link to="/">Pose recognition</Link>
+                <Navbar.Brand href="/">Pose recognition</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Link to="/login">Login</Link>
+                        <Nav.Link href="login">Login</Nav.Link>
                         {/*<Nav.Link href="singin">Singin</Nav.Link>*/}
-                        <Link to="/controlPanel">Control Panel</Link>
+                        <Nav.Link href="controlPanel">Control Panel</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
 
