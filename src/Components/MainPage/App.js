@@ -2,9 +2,9 @@ import './App.css';
 import PoseRecognition from "./poseRecognition";
 import Login from "../LoginPage/loginForm";
 import ControlPanel from "../ControlPanel/controllPanel";
-//import singinForm from "../SinginPage/singinForm";
 import Logout from "../LogoutPage/LogoutForm";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import React, { useState, useEffect, useContext } from 'react';
 
 // Elementy odpowiedzialne za Bootstrapa
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,10 +14,20 @@ import SinginForm from "../SinginPage/singinForm";
 import ProtectedRouted from "../RouteSettings/ProtectedRouted";
 import SessionRoute from "../RouteSettings/SessionRoute";
 
-
-
-
 function App() {
+
+    //Run only after first render
+    useEffect(() => {
+        //Initialize model only once
+        //Check if object is empty (not initialized)
+        //TODO check if model is initialized
+        if(true){
+            //TODO actual model initialization
+            console.log("Initializing model");
+        }
+    }, []);
+
+
     return (
         // In order for return to accept more than 1 element you have to cheat it
         // and insert all elements into one div as parent, hence the comments must be as {/**/},
