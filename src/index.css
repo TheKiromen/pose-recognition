@@ -1,9 +1,21 @@
 /*VARIABLES*/
 :root{
+    /*basic*/
     --super-light-green: #EDF1D6;
     --light-green: #9DC08B;
     --green: #609966;
     --dark-green: #40513B;
+
+    /*login*/
+    --vgtd: #00b300;
+    --vibrant-green: #00c300;
+    --vibrant-green-toned-up: #00ca00;
+    --vibrant-green-toned-upx2: #00db00;
+
+    /*navbar*/
+    --intense-dark-green: #25810b;
+    --intense-dark-green-toned-up: #2ea20d;
+    --intense-dark-green-toned-upx2: #2fb00b;
 }
 
 /*Styles*/

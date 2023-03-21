@@ -10,7 +10,6 @@ import {ModelContext} from "../Context/ModelContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainNavbar from "../Navbar";
 import CreatorsFooter from "../Footer"
-import SinginForm from "../SinginPage/singinForm";
 import ProtectedRouted from "../RouteSettings/ProtectedRouted";
 import SessionRoute from "../RouteSettings/SessionRoute";
 import {useState} from "react";
@@ -32,7 +31,6 @@ function App() {
                         <Route element={<SessionRoute />}>
                             <Route path="/login" element={<Login/>}/>
                         </Route>
-                        <Route path="/singin" element={<SinginForm/>}/>
                         {/*<Route path="controlPanel" element={<ControlPanel/>}/>*/}
                         <Route element={<ProtectedRouted />}>
                             <Route path="/controlPanel" element={<ControlPanel />}/>

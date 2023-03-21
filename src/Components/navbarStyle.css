@@ -1,3 +1,18 @@
 .navbar{
     background: var(--light-green) !important;
 }
+
+/* first 2 navigating are primary, login/logout are success/danger*/
+.btn-primary{
+    /*normal*/
+    --bs-btn-bg: var(--intense-dark-green);
+    --bs-btn-border-color: var(--intense-dark-green);
+
+    /*hover*/
+    --bs-btn-hover-bg: var(--intense-dark-green-toned-up);
+    --bs-btn-hover-border-color: var(--intense-dark-green-toned-up);
+
+    /*clicked*/
+    --bs-btn-active-bg: var(--intense-dark-green-toned-upx2);
+    --bs-btn-active-border-color: var(--intense-dark-green-toned-upx2);
+}

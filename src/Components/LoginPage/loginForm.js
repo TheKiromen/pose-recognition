@@ -78,7 +78,7 @@ const LoginForm = () => {
                     </Form.Group>
 
                     <div id="centering_id">
-                        <Button variant="info" type="submit">Login</Button>
+                        <Button type="submit">Login</Button>
                     </div>
                 </Form>
             </div>
