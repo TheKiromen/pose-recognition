@@ -15,17 +15,13 @@ import SessionRoute from "../RouteSettings/SessionRoute";
 import {useState} from "react";
 
 function App() {
-    const [test, setTest] = useState("dziala");
+    const [test, setTest] = useState("Initial Value");
     return (
 
-            <ModelContext.Provider value={"Test"}>
+            <ModelContext.Provider value={{test, setTest}}>
                 <BrowserRouter>
                     <div id="cover_everything">
                     <MainNavbar/>
-                        <button onClick={() => setTest("Bojtek")}>Helo Karthus</button>
-                        <div>
-                            {test}
-                        </div>
                     <Routes>
                         <Route index element={<PoseRecognition/>}/>
                         <Route element={<SessionRoute />}>

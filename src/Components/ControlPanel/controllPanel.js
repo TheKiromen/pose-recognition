@@ -8,6 +8,9 @@ import {ModelContext} from "../Context/ModelContext";
 //FIXME Change to use useState webhook
 
 function Panel() {
+
+        const obj = useContext(ModelContext);
+
         return (
             // For the margin bottom to work there has to be a div with it and another
             // div encapsulating div enlarged in this way. Both have to be flex
@@ -30,7 +33,10 @@ function Panel() {
                             <div>
                                 Hotel: Trivago
                             </div>
-
+                            <div>
+                                {obj.test}
+                            </div>
+                            <button onClick={() => obj.setTest("New Value")}>CLICK</button>
 
                         </div>
                         <div id="figures">
