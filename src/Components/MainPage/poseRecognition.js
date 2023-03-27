@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
+import {ModelContext} from "../Context/ModelContext";
 
 
-//FIXME Load model on app startup instead of entering panel
+//FIXME Move initialization outside to main application
 function PoseRecognition() {
+
+    const context = useContext(ModelContext);
 
     let video;
     let poseNet;
@@ -81,6 +84,7 @@ function PoseRecognition() {
     };
 
     const draw = (p5) => {
+        console.log(context.data);
         //Flip the image.
         p5.scale(-1, 1);
         p5.translate(-p5.width, 0);

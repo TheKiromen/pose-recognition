@@ -18,8 +18,7 @@ import SessionRoute from "../RouteSettings/SessionRoute";
 
 
 function App() {
-    const [test, setTest] = useState("Initial Value");
-	const [models, setModels] = useState(null);
+	const [data, setData] = useState({ml5: undefined, poseNet: undefined, p5: undefined});
 
 	let video;
 	let poseNet;
@@ -38,9 +37,13 @@ function App() {
 		weights: 'ModelData/model.weights.bin',
 	};
 
+	//Initialize ML models
 	useEffect(()=>{
 		//Initialize p5.js
 		p5 = new processing();
+		setData(prev => {
+			return {...prev, p5: p5};
+		});
 
 		//Initialize model
 		model = ml5.neuralNetwork(options);
@@ -48,18 +51,27 @@ function App() {
 		//Load trained model data
 		model.load(modelInfo, () => {
 			console.log("Main Model loaded!");
+			setData(prev => {
+				return {...prev, ml5: model};
+			});
 		});
 
 		//Initialize capture
 		video = p5.createCapture(p5.VIDEO);
 
 		//Initialize poseNet
-		poseNet = ml5.poseNet(video, () => console.log("Main PoseNet Ready!"));
+		poseNet = ml5.poseNet(video, () => {
+			console.log("Main PoseNet Ready!");
+			setData(prev => {
+				return {...prev, poseNet: poseNet};
+			});
+		});
 
 	},[])
 
+
     return (
-		<ModelContext.Provider value={{test, setTest}}>
+		<ModelContext.Provider value={{data, setData}}>
 			<BrowserRouter>
 				<div id="cover_everything">
 				<MainNavbar/>
