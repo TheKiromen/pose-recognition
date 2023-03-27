@@ -15,6 +15,7 @@ import MainNavbar from "../Navbar";
 import CreatorsFooter from "../Footer"
 import ProtectedRouted from "../RouteSettings/ProtectedRouted";
 import SessionRoute from "../RouteSettings/SessionRoute";
+import VideoFeed from "../Canvas/VideoFeed";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
 	};
 
 	//Initialize ML models
+	//FIXME Change to useMemo to initialize before render
 	useEffect(()=>{
 		//Initialize p5.js
 		p5 = new processing();
@@ -76,7 +78,9 @@ function App() {
 				<div id="cover_everything">
 				<MainNavbar/>
 				<Routes>
-					<Route index element={<PoseRecognition/>}/>
+					<Route index element={<VideoFeed/>}/>
+					{/*FIXME Change to wrapper element for VideoFeed*/}
+					{/*<Route index element={<PoseRecognition/>}/>*/}
 					<Route element={<SessionRoute />}>
 						<Route path="/login" element={<Login/>}/>
 					</Route>
