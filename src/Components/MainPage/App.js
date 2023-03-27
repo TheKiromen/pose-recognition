@@ -12,10 +12,14 @@ import MainNavbar from "../Navbar";
 import CreatorsFooter from "../Footer"
 import ProtectedRouted from "../RouteSettings/ProtectedRouted";
 import SessionRoute from "../RouteSettings/SessionRoute";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function App() {
     const [test, setTest] = useState("Initial Value");
+
+	useEffect(()=>{
+		console.log("Model init here!")
+	},[])
 
     return (
 		<ModelContext.Provider value={{test, setTest}}>
