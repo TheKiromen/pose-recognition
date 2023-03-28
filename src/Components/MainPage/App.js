@@ -19,7 +19,8 @@ import VideoFeed from "../Canvas/VideoFeed";
 
 
 function App() {
-	const [data, setData] = useState({ml5: undefined, poseNet: undefined, p5: undefined});
+	//TODO Move it to outside file and import proper functions and objects?
+	const [data, setData] = useState({video: undefined, points: undefined, skeleton: undefined});
 
 	let video;
 	let poseNet;
@@ -43,9 +44,6 @@ function App() {
 	useEffect(()=>{
 		//Initialize p5.js
 		p5 = new processing();
-		setData(prev => {
-			return {...prev, p5: p5};
-		});
 
 		//Initialize model
 		model = ml5.neuralNetwork(options);
@@ -58,8 +56,12 @@ function App() {
 			});
 		});
 
-		//Initialize capture
+		//Initialize video capture
 		video = p5.createCapture(p5.VIDEO);
+		video.hide();
+		setData(prev => {
+			return {...prev, video: video};
+		});
 
 		//Initialize poseNet
 		poseNet = ml5.poseNet(video, () => {
@@ -69,7 +71,36 @@ function App() {
 			});
 		});
 
+		poseNet.on('pose', poseDetected);
+
 	},[])
+
+	function poseDetected(poses){
+		let data, currentPose, skeleton;
+
+		//If Pose detected pick first and check confidence score
+		if(poses.length > 0 && poses[0].pose.score > 0.6){
+			//Set new pose
+			currentPose = poses[0].pose;
+			skeleton = poses[0].skeleton;
+
+			data = [];
+			for (let i = 0; i < currentPose.keypoints.length; i++) {
+				//Get x and y coordinates of keypoint
+				let x = currentPose.keypoints[i].position.x;
+				let y = currentPose.keypoints[i].position.y;
+				data.push(x);
+				data.push(y);
+			}
+
+			model.classify(data, (err, res) => console.log(res[0].label + " | " + res[0].confidence));
+		}
+
+		setData(prev => {
+			return {...prev, points: currentPose, skeleton: skeleton};
+		});
+
+	}
 
 
     return (

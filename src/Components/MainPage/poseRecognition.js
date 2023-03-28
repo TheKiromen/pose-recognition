@@ -84,7 +84,6 @@ function PoseRecognition() {
     };
 
     const draw = (p5) => {
-        console.log(context.data);
         //Flip the image.
         p5.scale(-1, 1);
         p5.translate(-p5.width, 0);
@@ -120,8 +119,6 @@ function PoseRecognition() {
                 //Draw the keypoint
                 p5.ellipse(x, y, 16, 16);
             }
-
-
         }
     };
 
