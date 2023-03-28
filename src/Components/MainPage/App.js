@@ -59,6 +59,7 @@ function App() {
 		//Initialize video capture
 		video = p5.createCapture(p5.VIDEO);
 		video.hide();
+
 		setData(prev => {
 			return {...prev, video: video};
 		});

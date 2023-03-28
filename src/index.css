@@ -64,3 +64,7 @@ code {
     top:0;
     left:0;
 }
+
+main{
+    display: none !important;
+}
