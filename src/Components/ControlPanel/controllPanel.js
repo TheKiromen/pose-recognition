@@ -1,11 +1,7 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import "./controllPanel.css"
-import {Navigate} from "react-router-dom";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
-import {useNavigate} from "react-router";
 import {ModelContext} from "../Context/ModelContext";
 
-//FIXME Change to use useState webhook
 
 function Panel() {
 

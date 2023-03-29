@@ -1,11 +1,14 @@
 import Sketch from "react-p5";
 import {useContext} from "react";
 import {ModelContext} from "../Context/ModelContext";
+import {LabelContext} from "../Context/LabelContext";
+import Container from "react-bootstrap/Container";
 
 
 function VideoFeed() {
 
     const context = useContext(ModelContext);
+    const label = useContext(LabelContext);
     let video = context.data.video;
     let posePoints = context.data.points;
     let poseSkeleton = context.data.skeleton;
@@ -55,10 +58,16 @@ function VideoFeed() {
             }
         }
 
+        // console.log(labelContext);
 
     }
 
-    return <Sketch setup={setup} draw={draw}/>;
+    return (
+        <Container>
+            <div id={"label"}>{label}</div>
+            <Sketch setup={setup} draw={draw}/>
+        </Container>
+    );
 }
 
 export default VideoFeed;

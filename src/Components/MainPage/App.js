@@ -16,11 +16,13 @@ import CreatorsFooter from "../Footer"
 import ProtectedRouted from "../RouteSettings/ProtectedRouted";
 import SessionRoute from "../RouteSettings/SessionRoute";
 import VideoFeed from "../Canvas/VideoFeed";
+import {LabelContext} from "../Context/LabelContext";
 
 
 function App() {
 	//TODO Move it to outside file and import proper functions and objects?
 	const [data, setData] = useState({video: undefined, points: undefined, skeleton: undefined});
+	const [label, setLabel] = useState("");
 
 	let video;
 	let poseNet;
@@ -40,7 +42,6 @@ function App() {
 	};
 
 	//Initialize ML models
-	//FIXME Change to useMemo to initialize before render
 	useEffect(()=>{
 		//Initialize p5.js
 		p5 = new processing();
@@ -74,7 +75,7 @@ function App() {
 
 		poseNet.on('pose', poseDetected);
 
-	},[])
+	},[]);
 
 	function poseDetected(poses){
 		let data, currentPose, skeleton;
@@ -94,7 +95,13 @@ function App() {
 				data.push(y);
 			}
 
-			model.classify(data, (err, res) => console.log(res[0].label + " | " + res[0].confidence));
+			model.classify(data, (err, res) => {
+				// console.log(res[0].label + " | " + res[0].confidence);
+				//FIXME Pick better formatting for output
+				setLabel(res[0].label.toUpperCase() + " | " + res[0].confidence);
+			});
+		}else{
+			setLabel("No pose detected");
 		}
 
 		setData(prev => {
@@ -106,26 +113,26 @@ function App() {
 
     return (
 		<ModelContext.Provider value={{data, setData}}>
-			<BrowserRouter>
-				<div id="cover_everything">
-				<MainNavbar/>
-				<Routes>
-					<Route index element={<VideoFeed/>}/>
-					{/*FIXME Change to wrapper element for VideoFeed*/}
-					{/*<Route index element={<PoseRecognition/>}/>*/}
-					<Route element={<SessionRoute />}>
-						<Route path="/login" element={<Login/>}/>
-					</Route>
-					{/*<Route path="controlPanel" element={<ControlPanel/>}/>*/}
-					<Route element={<ProtectedRouted />}>
-						<Route path="/controlPanel" element={<ControlPanel />}/>
-					</Route>
-					<Route path="/logout" element={<Logout/>}/>
-					<Route path="*" element={<Navigate to="/"/>}/>
-				</Routes>
-				</div>
-			</BrowserRouter>
-			<CreatorsFooter/>
+			<LabelContext.Provider value={label}>
+				<BrowserRouter>
+					<div id="cover_everything">
+					<MainNavbar/>
+					<Routes>
+						<Route index element={<VideoFeed/>}/>
+						<Route element={<SessionRoute />}>
+							<Route path="/login" element={<Login/>}/>
+						</Route>
+						{/*<Route path="controlPanel" element={<ControlPanel/>}/>*/}
+						<Route element={<ProtectedRouted />}>
+							<Route path="/controlPanel" element={<ControlPanel />}/>
+						</Route>
+						<Route path="/logout" element={<Logout/>}/>
+						<Route path="*" element={<Navigate to="/"/>}/>
+					</Routes>
+					</div>
+				</BrowserRouter>
+				<CreatorsFooter/>
+			</LabelContext.Provider>
 		</ModelContext.Provider>
     );
 }
