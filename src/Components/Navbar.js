@@ -8,7 +8,6 @@ import "../Components/navbarStyle.css";
 import { getAuth, signOut} from "firebase/auth";
 import {useUserAuth} from "./MonitorAuth";
 
-//FIXME Try to fix logout button from flickering when your session is active and you navigate through application
 
 const MainNavbar = () => {
     //Preparation of the code for further operation
@@ -38,7 +37,7 @@ const MainNavbar = () => {
                         <Link to="/controlPanel"><Button >Control Panel</Button></Link>
                     </Nav>
                 </Navbar.Collapse>
-
+                {logged ? <div className="badge bg-success text-wrap"> Hello {logged.email} </div> : null }
                 {/* The way of being logged in will change so for now only a placeholder wil be put in place */}
                 <div id="logout">
                     {logged ? <Button onClick={HandleLogout} variant="danger">

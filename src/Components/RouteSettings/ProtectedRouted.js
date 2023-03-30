@@ -6,7 +6,7 @@ const ProtectedRouted = () => {
     //Checking if user id is visible, can be improved
     const logged = useUserAuth();
 
-    console.log("Wartosc logged: ", logged);
+    //console.log("Wartosc logged: ", logged);
 
     return typeof logged === 'undefined' ? (
         null  //Replace with loading button
