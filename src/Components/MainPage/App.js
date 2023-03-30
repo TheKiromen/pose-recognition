@@ -1,5 +1,4 @@
 import './App.css';
-import PoseRecognition from "./poseRecognition";
 import Login from "../LoginPage/loginForm";
 import ControlPanel from "../ControlPanel/controllPanel";
 import Logout from "../LogoutPage/LogoutForm";
@@ -20,7 +19,6 @@ import {LabelContext} from "../Context/LabelContext";
 
 
 function App() {
-	//TODO Move it to outside file and import proper functions and objects?
 	const [data, setData] = useState({video: undefined, points: undefined, skeleton: undefined});
 	const [label, setLabel] = useState("");
 
@@ -36,9 +34,9 @@ function App() {
 		debug: true
 	}
 	const modelInfo = {
-		model: 'ModelData/model.json',
-		metadata: 'ModelData/model_meta.json',
-		weights: 'ModelData/model.weights.bin',
+		model: 'DefaultModelData/model.json',
+		metadata: 'DefaultModelData/model_meta.json',
+		weights: 'DefaultModelData/model.weights.bin',
 	};
 
 	//Initialize ML models
