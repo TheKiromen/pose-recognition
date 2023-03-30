@@ -2,20 +2,21 @@ import './App.css';
 import Login from "../LoginPage/loginForm";
 import ControlPanel from "../ControlPanel/controllPanel";
 import Logout from "../LogoutPage/LogoutForm";
+import VideoFeed from "../Canvas/VideoFeed";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {ModelContext} from "../Context/ModelContext";
+import {LabelContext} from "../Context/LabelContext";
 import {useEffect, useState} from "react";
-import * as processing from 'p5'
 import * as ml5 from 'ml5'
 
+
+import * as processing from 'p5'
 // Elementy odpowiedzialne za Bootstrapa
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainNavbar from "../Navbar";
 import CreatorsFooter from "../Footer"
 import ProtectedRouted from "../RouteSettings/ProtectedRouted";
 import SessionRoute from "../RouteSettings/SessionRoute";
-import VideoFeed from "../Canvas/VideoFeed";
-import {LabelContext} from "../Context/LabelContext";
 
 
 function App() {

@@ -1,11 +1,11 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import "../Components/navbarStyle.css";
 import Button from "react-bootstrap/Button";
-import {useNavigate, Outlet} from "react-router";
 import {Link} from "react-router-dom";
-import { getAuth, signOut, onAuthStateChanged} from "firebase/auth";
+import "../Components/navbarStyle.css";
+
+import { getAuth, signOut} from "firebase/auth";
 import {useUserAuth} from "./MonitorAuth";
 
 //FIXME Try to fix logout button from flickering when your session is active and you navigate through application

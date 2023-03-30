@@ -1,5 +1,5 @@
-import { useUserAuth} from "../MonitorAuth";
 import React from 'react';
+import { useUserAuth} from "../MonitorAuth";
 import {Navigate, Outlet} from "react-router";
 
 //If session is active then navigate to control panel

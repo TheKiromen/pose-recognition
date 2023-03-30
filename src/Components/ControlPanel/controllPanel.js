@@ -1,6 +1,6 @@
 import {useContext} from "react";
-import "./controllPanel.css"
 import {ModelContext} from "../Context/ModelContext";
+import "./controllPanel.css"
 
 
 function Panel() {
