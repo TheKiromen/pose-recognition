@@ -1,8 +1,7 @@
 #label {
     display: flex;
     justify-content: center;
-    margin: auto;
-    margin-top: 20px;
+    margin: 20px auto 20px auto;
 
     /*special attention grabbing font, yet still professional */
     font-size: 40px;

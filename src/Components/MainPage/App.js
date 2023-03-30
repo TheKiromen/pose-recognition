@@ -7,10 +7,10 @@ import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {ModelContext} from "../Context/ModelContext";
 import {LabelContext} from "../Context/LabelContext";
 import {useEffect, useState} from "react";
+import * as processing from 'p5'
 import * as ml5 from 'ml5'
 
 
-import * as processing from 'p5'
 // Elementy odpowiedzialne za Bootstrapa
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainNavbar from "../Navbar";

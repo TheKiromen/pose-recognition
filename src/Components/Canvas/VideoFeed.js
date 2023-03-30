@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import {useContext} from "react";
 import {ModelContext} from "../Context/ModelContext";
 import {LabelContext} from "../Context/LabelContext";
+import {Dropdown, ListGroup} from "react-bootstrap";
 
 
 function VideoFeed() {
@@ -66,6 +67,31 @@ function VideoFeed() {
         <Container>
             <div id={"label"}>{label}</div>
             <Sketch setup={setup} draw={draw}/>
+            {/*FIXME pick one of those, */}
+            <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    Dropdown Button
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">ymca</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">model</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">test</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+
+            <ListGroup defaultActiveKey="#link1">
+                <ListGroup.Item action href="#link1">
+                    ymca
+                </ListGroup.Item>
+                <ListGroup.Item action href="#link2">
+                    model
+                </ListGroup.Item>
+                <ListGroup.Item action href="#link3">
+                    Test
+                </ListGroup.Item>
+            </ListGroup>
+
         </Container>
     );
 }
