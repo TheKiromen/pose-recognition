@@ -1,7 +1,22 @@
-#label{
-    width:100%;
-    text-align: center;
-    font-weight: bold;
-    margin-top:20px;
-    /*    TODO  Label styling   */
+#label {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 20px;
+
+    /*special attention grabbing font, yet still professional */
+    font-size: 40px;
+    font-family: "Consolas";
+
+    width: 640px;
+
+    /*some sweet fading*/
+    background: linear-gradient(
+            90deg,
+            rgba(0,0,0,0) 0%,
+            var(--light-green) 20%,
+            var(--green) 50%,
+            var(--light-green) 80%,
+            rgba(0,0,0,0) 100%);
+
 }
