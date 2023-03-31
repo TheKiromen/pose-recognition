@@ -4,6 +4,7 @@ import ControlPanel from "../ControlPanel/controllPanel";
 import Logout from "../LogoutPage/LogoutForm";
 import VideoFeed from "../Canvas/VideoFeed";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import {ModelContext} from "../Context/ModelContext";
 import {LabelContext} from "../Context/LabelContext";
 import {useEffect, useState} from "react";
@@ -19,14 +20,20 @@ import ProtectedRouted from "../RouteSettings/ProtectedRouted";
 import SessionRoute from "../RouteSettings/SessionRoute";
 
 
+
+
 function App() {
 	const [data, setData] = useState({video: undefined, points: undefined, skeleton: undefined});
 	const [label, setLabel] = useState("");
+
+	// console.log("helloWorld");
 
 	let video;
 	let poseNet;
 	let model;
 	let p5;
+
+	console.log("test");
 
 	const options = {
 		inputs: 34,
@@ -47,6 +54,8 @@ function App() {
 
 		//Initialize model
 		model = ml5.neuralNetwork(options);
+
+		console.log("testapp");
 
 		//Load trained model data
 		model.load(modelInfo, () => {

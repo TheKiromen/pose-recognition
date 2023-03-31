@@ -2,9 +2,44 @@
 
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
+import {getDownloadURL, getStorage, ref} from "firebase/storage";
+//import {storage} from "../Firebase/FirebaseConfig"
+
+const storage = getStorage();
+const modelRef = ref(storage, 'test-model/model.json');
+
 
 
 function Panel() {
+    // const modelRef = ref(storage, 'test-model/model.json');
+    //const metaRef = ref(storage, 'test-model/model_meta.json');
+    //const weightsRef = ref(storage, 'test-model/model.weights.bin');
+    function getUrl(){
+        getDownloadURL(modelRef)
+            .then((url) => {
+                console.log(url);
+            })
+            .catch((error) => {
+                // A full list of error codes is available at
+                // https://firebase.google.com/docs/storage/web/handle-errors
+                switch (error.code) {
+                    case 'storage/object-not-found':
+                        // File doesn't exist
+                        console.log("file doesn't exist");
+                        break;
+                    case 'storage/unauthorized':
+                        // User doesn't have permission to access the object
+                        console.log("unauthorized");
+                        break;
+                    case 'storage/unknown':
+                        // Unknown error occurred, inspect the server response
+                        console.log("unknown");
+                        break;
+                }
+            });
+    }
+
+    //const storageRef = ref(storage, 'test-model');
         return (
             <div id="encapsulating">
                 <div id="enlarged">
@@ -16,6 +51,8 @@ function Panel() {
                             {/*General information*/}
                             <p><b>Current user:</b> Bojciech Wadura</p>
                             <p><b>Current model:</b> ymca</p>
+                            <button onClick={getUrl}>Test</button>
+
                             <hr/>
 
                             <Form>
