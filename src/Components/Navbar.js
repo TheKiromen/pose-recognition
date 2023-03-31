@@ -37,6 +37,7 @@ const MainNavbar = () => {
                         <Link to="/controlPanel"><Button >Control Panel</Button></Link>
                     </Nav>
                 </Navbar.Collapse>
+                {/*TODO Move to control panel*/}
                 {logged ? <div className="badge bg-success text-wrap"> Hello {logged.email} </div> : null }
                 {/* The way of being logged in will change so for now only a placeholder wil be put in place */}
                 <div id="logout">
