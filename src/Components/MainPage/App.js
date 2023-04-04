@@ -24,14 +24,13 @@ function App() {
 	const [data, setData] = useState({video: undefined, points: undefined, skeleton: undefined});
 	const [label, setLabel] = useState("");
 
-	// console.log("helloWorld");
 
 	let video;
 	let poseNet;
 	let model;
 	let p5;
 
-	console.log("test");
+	//console.log("test");
 
 	const options = {
 		inputs: 34,
@@ -43,12 +42,11 @@ function App() {
 
 	//Initialize ML models
 	useEffect(()=>{
-		console.log("start useEffect");
+
 		//Download model files
-		const getModelUrl = async (imageRef) => {
-			return await getDownloadURL(imageRef)
+		const getModelUrl = async (fileRef) => {
+			return await getDownloadURL(fileRef)
 				.then((url) => {
-					console.log(url);
 					return url;
 				})
 				.catch((error) => {
@@ -57,6 +55,7 @@ function App() {
 				});
 		};
 
+		//Fetch all models (now is permanently test)
 		const fetchModels = async () => {
 			//Storage URL
 			const storage = getStorage();
@@ -64,25 +63,22 @@ function App() {
 			const metaRef = ref(storage, 'test-model/model_meta.json');
 			const weightRef = ref(storage, 'test-model/model.weights.bin');
 
+			//Get all data to modelInfo
 			modelInfo.model = await getModelUrl(modelRef);
 			modelInfo.metadata = await getModelUrl(metaRef);
 			modelInfo.weights = await getModelUrl(weightRef);
 
+			//FIXME Delete this console.log at the end
 			console.log("Z funkcji: ",modelInfo);
 
 		}
 
-		// fetchModels()
-		// //make sure to catch error
-		// 	.catch(console.error);
-
+		// Wait until all data is downloaded
 		(async () => {
 			await fetchModels().then(() => {
 
 				//Initialize model
 				model = ml5.neuralNetwork(options);
-
-				console.log("testapp");
 
 				//Load trained model data
 				model.load(modelInfo, () => {
@@ -94,16 +90,12 @@ function App() {
 
 			});
 		})();
-		// fetchModels().then(() => { console.log('Wykonano fetch')});
 
-
-
-
-		console.log(modelInfo);
 		//Initialize p5.js
 		p5 = new processing();
 
-		// //Initialize model
+		//FIXME delete it if unnecessary
+		//Initialize model
 		// model = ml5.neuralNetwork(options);
 		//
 		// console.log("testapp");
