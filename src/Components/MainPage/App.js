@@ -20,8 +20,6 @@ import ProtectedRouted from "../RouteSettings/ProtectedRouted";
 import SessionRoute from "../RouteSettings/SessionRoute";
 
 
-
-
 function App() {
 	const [data, setData] = useState({video: undefined, points: undefined, skeleton: undefined});
 	const [label, setLabel] = useState("");
@@ -41,29 +39,82 @@ function App() {
 		task: 'classification',
 		debug: true
 	}
-	const modelInfo = {
-		model: 'DefaultModelData/model.json',
-		metadata: 'DefaultModelData/model_meta.json',
-		weights: 'DefaultModelData/model.weights.bin',
-	};
+	const modelInfo = {};
 
 	//Initialize ML models
 	useEffect(()=>{
+		console.log("start useEffect");
+		//Download model files
+		const getModelUrl = async (imageRef) => {
+			return await getDownloadURL(imageRef)
+				.then((url) => {
+					console.log(url);
+					return url;
+				})
+				.catch((error) => {
+					console.log(error);
+					return "";
+				});
+		};
+
+		const fetchModels = async () => {
+			//Storage URL
+			const storage = getStorage();
+			const modelRef = ref(storage, 'test-model/model.json');
+			const metaRef = ref(storage, 'test-model/model_meta.json');
+			const weightRef = ref(storage, 'test-model/model.weights.bin');
+
+			modelInfo.model = await getModelUrl(modelRef);
+			modelInfo.metadata = await getModelUrl(metaRef);
+			modelInfo.weights = await getModelUrl(weightRef);
+
+			console.log("Z funkcji: ",modelInfo);
+
+		}
+
+		// fetchModels()
+		// //make sure to catch error
+		// 	.catch(console.error);
+
+		(async () => {
+			await fetchModels().then(() => {
+
+				//Initialize model
+				model = ml5.neuralNetwork(options);
+
+				console.log("testapp");
+
+				//Load trained model data
+				model.load(modelInfo, () => {
+					console.log("Main Model loaded!");
+					setData(prev => {
+						return {...prev, ml5: model};
+					});
+				});
+
+			});
+		})();
+		// fetchModels().then(() => { console.log('Wykonano fetch')});
+
+
+
+
+		console.log(modelInfo);
 		//Initialize p5.js
 		p5 = new processing();
 
-		//Initialize model
-		model = ml5.neuralNetwork(options);
-
-		console.log("testapp");
-
-		//Load trained model data
-		model.load(modelInfo, () => {
-			console.log("Main Model loaded!");
-			setData(prev => {
-				return {...prev, ml5: model};
-			});
-		});
+		// //Initialize model
+		// model = ml5.neuralNetwork(options);
+		//
+		// console.log("testapp");
+		//
+		// //Load trained model data
+		// model.load(modelInfo, () => {
+		// 	console.log("Main Model loaded!");
+		// 	setData(prev => {
+		// 		return {...prev, ml5: model};
+		// 	});
+		// });
 
 		//Initialize video capture
 		video = p5.createCapture(p5.VIDEO);
@@ -82,6 +133,7 @@ function App() {
 		});
 
 		poseNet.on('pose', poseDetected);
+
 
 	},[]);
 
