@@ -3,7 +3,9 @@ import Container from "react-bootstrap/Container";
 import {useContext} from "react";
 import {ModelContext} from "../Context/ModelContext";
 import {LabelContext} from "../Context/LabelContext";
-import {Dropdown, ListGroup} from "react-bootstrap";
+import {ListGroup} from "react-bootstrap";
+import "../../index.css"
+import "./VideoFeed.css"
 
 
 function VideoFeed() {
@@ -16,7 +18,7 @@ function VideoFeed() {
 
 
     const setup = (p5, canvasRef) => {
-        p5.createCanvas(640,480).parent(canvasRef);
+        p5.createCanvas(640, 480).parent(canvasRef);
     }
 
     const draw = (p5) => {
@@ -25,12 +27,12 @@ function VideoFeed() {
         p5.translate(-p5.width, 0);
 
         //Draw camera image
-        if(video){
+        if (video) {
             p5.image(video, 0, 0, p5.width, p5.width * video.height / video.width);
         }
 
         //If pose was detected
-        if(posePoints){
+        if (posePoints) {
             //Draw the skeleton
             for (let i = 0; i < poseSkeleton.length; i++) {
                 //Get adjacent points
@@ -67,31 +69,20 @@ function VideoFeed() {
         <Container>
             <div id={"label"}>{label}</div>
             <Sketch setup={setup} draw={draw}/>
-            {/*FIXME pick one of those, */}
-            <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Dropdown Button
-                </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">ymca</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">model</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">test</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
-
-            <ListGroup defaultActiveKey="#link1">
-                <ListGroup.Item action href="#link1">
-                    ymca
-                </ListGroup.Item>
-                <ListGroup.Item action href="#link2">
-                    model
-                </ListGroup.Item>
-                <ListGroup.Item action href="#link3">
-                    Test
-                </ListGroup.Item>
-            </ListGroup>
-
+            <div id="centering_id">
+                <ListGroup defaultActiveKey="#link1">
+                    <ListGroup.Item action href="#link1">
+                        ymca
+                    </ListGroup.Item>
+                    <ListGroup.Item action href="#link2">
+                        model
+                    </ListGroup.Item>
+                    <ListGroup.Item action href="#link3">
+                        Test
+                    </ListGroup.Item>
+                </ListGroup>
+            </div>
         </Container>
     );
 }

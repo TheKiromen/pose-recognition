@@ -16,3 +16,7 @@
     --bs-btn-active-bg: var(--intense-dark-green-toned-upx2);
     --bs-btn-active-border-color: var(--intense-dark-green-toned-upx2);
 }
+
+.badge{
+    margin-right: 7px;
+}
