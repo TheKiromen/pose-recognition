@@ -3,6 +3,6 @@
     justify-content: center;
 }
 .list-group-item.active{
-    background-color: var(--green);
-    border-color: var(--green);
+    background-color: var(--green) !important;
+    border-color: var(--green) !important;
 }
