@@ -21,6 +21,7 @@ import SessionRoute from "../RouteSettings/SessionRoute";
 
 
 function App() {
+	//TODO Add model data to pass it down to control panel?
 	const [data, setData] = useState({video: undefined, points: undefined, skeleton: undefined});
 	const [label, setLabel] = useState("");
 
