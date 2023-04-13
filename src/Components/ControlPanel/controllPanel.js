@@ -3,13 +3,15 @@ import "./controllPanel.css"
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
+import {useState} from "react";
 //import {storage} from "../Firebase/FirebaseConfig"
 
 const storage = getStorage();
 const modelRef = ref(storage, 'test-model/model.json');
 
-
 function Panel() {
+
+    let test = true;
 
     const exportModel = () =>{
         console.log("Exporting model");
@@ -23,21 +25,34 @@ function Panel() {
         console.log("Training");
     }
 
-    const handleModelFileSelection = (e) =>{
-        let eventSource = e.target.id;
+    //Lord forgive me for what im about to do
+    const handleModelFileSelection = () =>{
+        //List of fileInput ID's
+        let inputs = ["modelFileInput", "metaFileInput", "weightsFileInput"];
+        //Boolean counter
+        let controlSum = 0;
 
-        //TODO Only enable button if all 3 files are valid
-        // Use state map to hold boolean values for each input? Hold it as useState??
-        // If all 3 valid, only then proceed. On each input change reevaluate source input
-        console.log("Model File selected");
-        console.log(eventSource);
-        document.getElementById("importBtn").removeAttribute("disabled");
+        //For each file input
+        inputs.forEach(el => {
+            //Get path as string and double negate it to convert to bool
+            //No path (empty string - "") returns false, anything else true
+            //Then sum these booleans as int
+            controlSum+=!!document.getElementById(el).value;
+        });
+
+        //If all 3 inputs are selected, enable button
+        if(controlSum===3){
+            //FIXME fix event not running after enabling
+            document.getElementById("importBtn").removeAttribute("disabled");
+        }
     }
 
     const handleDataFileSelection = (e) =>{
-        //TODO Enable button after validating the file
-        console.log("Data File selected");
-        document.getElementById("trainBtn").removeAttribute("disabled");
+        console.log(document.getElementById(e.target.id).value);
+        if(document.getElementById(e.target.id).value !== ""){
+            //FIXME fix event not running after enabling
+            document.getElementById("trainBtn").removeAttribute("disabled");
+        }
     }
 
     // const modelRef = ref(storage, 'test-model/model.json');
@@ -91,7 +106,7 @@ function Panel() {
                                     <Form.Control type="file" accept=".json" onChange={handleDataFileSelection}/>
                                     <Form.Label>Epochs:</Form.Label>
                                     <Form.Control type="number" min="1" max="1000" defaultValue={100}/>
-                                    <Button id="trainBtn" variant="light" className='mt-2' onClick={trainModel} disabled>Train model</Button>
+                                    <Button id="trainBtn" variant="light" className='mt-2' onClick={trainModel} disabled={true}>Train model</Button>
                                 </Form.Group>
                             </Form>
                         </div>
