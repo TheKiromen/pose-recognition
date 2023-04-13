@@ -11,7 +11,10 @@ const modelRef = ref(storage, 'test-model/model.json');
 
 function Panel() {
 
-    let test = true;
+    //Buttons state
+    const [trainBtnDisabled, setTrainBtnDisabled] = useState(true);
+    const [importBtnDisabled, setImportBtnDisabled] = useState(true);
+
 
     const exportModel = () =>{
         console.log("Exporting model");
@@ -42,16 +45,14 @@ function Panel() {
 
         //If all 3 inputs are selected, enable button
         if(controlSum===3){
-            //FIXME fix event not running after enabling
-            document.getElementById("importBtn").removeAttribute("disabled");
+            setImportBtnDisabled(false);
         }
     }
 
     const handleDataFileSelection = (e) =>{
         console.log(document.getElementById(e.target.id).value);
         if(document.getElementById(e.target.id).value !== ""){
-            //FIXME fix event not running after enabling
-            document.getElementById("trainBtn").removeAttribute("disabled");
+            setTrainBtnDisabled(false);
         }
     }
 
@@ -106,7 +107,7 @@ function Panel() {
                                     <Form.Control type="file" accept=".json" onChange={handleDataFileSelection}/>
                                     <Form.Label>Epochs:</Form.Label>
                                     <Form.Control type="number" min="1" max="1000" defaultValue={100}/>
-                                    <Button id="trainBtn" variant="light" className='mt-2' onClick={trainModel} disabled={true}>Train model</Button>
+                                    <Button variant="light" className='mt-2' onClick={trainModel} disabled={trainBtnDisabled}>Train model</Button>
                                 </Form.Group>
                             </Form>
                         </div>
@@ -123,7 +124,7 @@ function Panel() {
                                     <Form.Control id="metaFileInput" type="file" accept=".json" onChange={handleModelFileSelection}/>
                                     <Form.Label>Model_weights:</Form.Label>
                                     <Form.Control id="weightsFileInput" type="file" accept=".bin" onChange={handleModelFileSelection}/>
-                                    <Button id="importBtn" variant="light" className='mt-2' onClick={importModel} disabled>Import model</Button>
+                                    <Button variant="light" className='mt-2' onClick={importModel} disabled={importBtnDisabled}>Import model</Button>
                                 </Form.Group>
                             </Form>
                         </div>
