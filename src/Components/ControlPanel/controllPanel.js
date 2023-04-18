@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import {useContext, useState} from "react";
 import {ModelContext} from "../Context/ModelContext";
+import * as ml5 from 'ml5'
 //import {storage} from "../Firebase/FirebaseConfig"
 
 const storage = getStorage();
@@ -15,7 +16,15 @@ function Panel() {
     //Buttons state
     const [trainBtnDisabled, setTrainBtnDisabled] = useState(true);
     const [importBtnDisabled, setImportBtnDisabled] = useState(true);
+
+    //Variables
     const context = useContext(ModelContext);
+    const options = {
+        inputs: 34,
+        outputs: 1,
+        task: 'classification',
+        debug: true
+    }
     let model = context.data.model;
 
 
@@ -28,7 +37,38 @@ function Panel() {
     }
 
     const trainModel = () =>{
-        console.log("Training");
+        //Get file from input
+        let file = document.getElementById("importDataFile").files[0];
+        //Read the file
+        if(file){
+            let reader = new FileReader();
+            reader.readAsText(file, "UTF-8");
+            //After reading the file train the model
+            reader.onload = e => {
+                //Extract raw data and convert it to object
+                let json = e.target.result;
+                let rawData = JSON.parse(json).data;
+
+                //Create new model
+                let newModel = ml5.neuralNetwork(options);
+
+                //Populate model with training data
+                rawData.forEach(el => {
+                   newModel.addData(el.xs, el.ys);
+                });
+
+                //Normalize data
+                newModel.normalizeData();
+
+                //TODO get number of epochs
+
+                //Retrain model
+                //FIXME no debugging chart?
+                newModel.train({epochs:10},() => {console.log("trained")});
+
+                //TODO override old model with new one
+            }
+        }
     }
 
     //Lord forgive me for what im about to do
@@ -103,9 +143,9 @@ function Panel() {
                         <div>
                             <Form>
                                 <Form.Label><b>Train new model</b></Form.Label>
-                                <Form.Group controlId="importData" className="mb-3">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Import data:</Form.Label>
-                                    <Form.Control type="file" accept=".json" onChange={handleDataFileSelection}/>
+                                    <Form.Control id="importDataFile" type="file" accept=".json" onChange={handleDataFileSelection}/>
                                     <Form.Label>Epochs:</Form.Label>
                                     <Form.Control type="number" min="1" max="1000" defaultValue={100}/>
                                     <Button variant="light" className='mt-2' onClick={trainModel} disabled={trainBtnDisabled}>Train model</Button>

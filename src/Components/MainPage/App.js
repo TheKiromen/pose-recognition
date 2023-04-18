@@ -23,7 +23,7 @@ import SessionRoute from "../RouteSettings/SessionRoute";
 function App() {
 	const [data, setData] = useState({video: undefined, points: undefined, skeleton: undefined, model: undefined});
 	const [label, setLabel] = useState("");
-	const [list, setList] = useState(["el1", "test", "bojtek", "sdgsdgsdgsdg","el1", "test", "bojtek", "sdgsdgsdgsdg"])
+	const [list, setList] = useState([]);
 
 
 	let video;
@@ -43,6 +43,10 @@ function App() {
 
 	//Initialize ML models
 	useEffect(()=>{
+		//TODO Get models list from firebase and set it as state
+		setList(prev => {
+			return ["el1", "test", "bojtek", "sdgsdgsdgsdg","el1", "test", "bojtek", "sdgsdgsdgsdg"];
+		});
 
 		//Download model files
 		const getModelUrl = async (fileRef) => {
