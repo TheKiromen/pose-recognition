@@ -24,6 +24,7 @@ function App() {
 	//TODO Add model data to pass it down to control panel?
 	const [data, setData] = useState({video: undefined, points: undefined, skeleton: undefined});
 	const [label, setLabel] = useState("");
+	const [list, setList] = useState(["el1", "test", "bojtek", "sdgsdgsdgsdg","el1", "test", "bojtek", "sdgsdgsdgsdg"])
 
 
 	let video;
@@ -165,7 +166,7 @@ function App() {
 
 
     return (
-		<ModelContext.Provider value={{data, setData}}>
+		<ModelContext.Provider value={{data, setData, list}}>
 			<LabelContext.Provider value={label}>
 				<BrowserRouter>
 					<div id="cover_everything">

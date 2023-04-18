@@ -15,6 +15,7 @@ function VideoFeed() {
     let video = context.data.video;
     let posePoints = context.data.points;
     let poseSkeleton = context.data.skeleton;
+    let list = context.list;
 
 
     const setup = (p5, canvasRef) => {
@@ -71,16 +72,16 @@ function VideoFeed() {
             <Sketch setup={setup} draw={draw}/>
 
             <div id="centering_id">
-                <ListGroup defaultActiveKey="#link1">
-                    <ListGroup.Item action href="#link1">
-                        ymca
-                    </ListGroup.Item>
-                    <ListGroup.Item action href="#link2">
-                        model
-                    </ListGroup.Item>
-                    <ListGroup.Item action href="#link3">
-                        Test
-                    </ListGroup.Item>
+                <ListGroup defaultActiveKey="#link0">
+                    {
+                        list.map((label, i) => {
+                            return (
+                                <ListGroup.Item action href={"#link"+i} >
+                                    {label}
+                                </ListGroup.Item>
+                            )
+                        })
+                    }
                 </ListGroup>
             </div>
         </Container>
