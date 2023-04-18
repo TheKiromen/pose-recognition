@@ -3,7 +3,8 @@ import "./controllPanel.css"
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {ModelContext} from "../Context/ModelContext";
 //import {storage} from "../Firebase/FirebaseConfig"
 
 const storage = getStorage();
@@ -14,10 +15,12 @@ function Panel() {
     //Buttons state
     const [trainBtnDisabled, setTrainBtnDisabled] = useState(true);
     const [importBtnDisabled, setImportBtnDisabled] = useState(true);
+    const context = useContext(ModelContext);
+    let model = context.data.model;
 
 
     const exportModel = () =>{
-        console.log("Exporting model");
+        model.save();
     }
 
     const importModel = () =>{
@@ -50,7 +53,6 @@ function Panel() {
     }
 
     const handleDataFileSelection = (e) =>{
-        console.log(document.getElementById(e.target.id).value);
         if(document.getElementById(e.target.id).value !== ""){
             setTrainBtnDisabled(false);
         }
@@ -97,7 +99,6 @@ function Panel() {
                             {/*<Button variant="light" className='mb-2' onClick={getUrl}>Test</Button>*/}
                         </div>
 
-                        {/*FIXME for styling purposes I changed form layout (below is old version)*/}
                         {/*New model training*/}
                         <div>
                             <Form>

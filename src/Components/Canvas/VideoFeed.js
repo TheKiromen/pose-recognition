@@ -76,7 +76,7 @@ function VideoFeed() {
                     {
                         list.map((label, i) => {
                             return (
-                                <ListGroup.Item action href={"#link"+i} >
+                                <ListGroup.Item action href={"#link"+i}>
                                     {label}
                                 </ListGroup.Item>
                             )

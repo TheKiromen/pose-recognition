@@ -21,8 +21,7 @@ import SessionRoute from "../RouteSettings/SessionRoute";
 
 
 function App() {
-	//TODO Add model data to pass it down to control panel?
-	const [data, setData] = useState({video: undefined, points: undefined, skeleton: undefined});
+	const [data, setData] = useState({video: undefined, points: undefined, skeleton: undefined, model: undefined});
 	const [label, setLabel] = useState("");
 	const [list, setList] = useState(["el1", "test", "bojtek", "sdgsdgsdgsdg","el1", "test", "bojtek", "sdgsdgsdgsdg"])
 
@@ -69,10 +68,6 @@ function App() {
 			modelInfo.model = await getModelUrl(modelRef);
 			modelInfo.metadata = await getModelUrl(metaRef);
 			modelInfo.weights = await getModelUrl(weightRef);
-
-			//FIXME Delete this console.log at the end
-			console.log("Z funkcji: ",modelInfo);
-
 		}
 
 		// Wait until all data is downloaded
@@ -86,7 +81,7 @@ function App() {
 				model.load(modelInfo, () => {
 					console.log("Main Model loaded!");
 					setData(prev => {
-						return {...prev, ml5: model};
+						return {...prev, model: model};
 					});
 				});
 
@@ -95,20 +90,6 @@ function App() {
 
 		//Initialize p5.js
 		p5 = new processing();
-
-		//FIXME delete it if unnecessary
-		//Initialize model
-		// model = ml5.neuralNetwork(options);
-		//
-		// console.log("testapp");
-		//
-		// //Load trained model data
-		// model.load(modelInfo, () => {
-		// 	console.log("Main Model loaded!");
-		// 	setData(prev => {
-		// 		return {...prev, ml5: model};
-		// 	});
-		// });
 
 		//Initialize video capture
 		video = p5.createCapture(p5.VIDEO);
