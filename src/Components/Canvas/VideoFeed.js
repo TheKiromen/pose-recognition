@@ -70,7 +70,7 @@ function VideoFeed() {
         <Container>
             <div id={"label"}>{label}</div>
             <Sketch setup={setup} draw={draw}/>
-
+            <div id="model_label"><b>Avaiable models:</b></div>
             <div id="centering_id">
                 <ListGroup defaultActiveKey="#link0">
                     {

@@ -67,3 +67,8 @@ code {
 main{
     display: none !important;
 }
+
+.container{
+    /*navber: 54px + margin: 20px = 74px*/
+    height: calc(100% + 74px);
+}
