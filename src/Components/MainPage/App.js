@@ -3,13 +3,14 @@ import Login from "../LoginPage/loginForm";
 import ControlPanel from "../ControlPanel/controllPanel";
 import Logout from "../LogoutPage/LogoutForm";
 import VideoFeed from "../Canvas/VideoFeed";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes, useLocation, useParams} from "react-router-dom";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import {ModelContext} from "../Context/ModelContext";
 import {LabelContext} from "../Context/LabelContext";
 import {useEffect, useState} from "react";
 import * as processing from 'p5'
 import * as ml5 from 'ml5'
+// import {User} from "../Canvas/VideoFeed";
 
 
 // Elementy odpowiedzialne za Bootstrapa
@@ -24,14 +25,15 @@ function App() {
 	const [data, setData] = useState({video: undefined, points: undefined, skeleton: undefined, model: undefined});
 	const [label, setLabel] = useState("");
 	const [list, setList] = useState([]);
-
+	const [linkmodel, setLinkmodel] = useState("test-model");
 
 	let video;
 	let poseNet;
-	let model;
-	let p5;
 
-	//console.log("test");
+	let p5;
+	//let modeltype= "test-model";
+
+	//console.log(modeltype);
 
 	const options = {
 		inputs: 34,
@@ -39,14 +41,17 @@ function App() {
 		task: 'classification',
 		debug: true
 	}
+	const model = ml5.neuralNetwork(options);
 	const modelInfo = {};
 
 	//Initialize ML models
 	useEffect(()=>{
 		//TODO Get models list from firebase and set it as state
 		setList(prev => {
-			return ["el1", "test", "bojtek", "sdgsdgsdgsdg","el1", "test", "bojtek", "sdgsdgsdgsdg"];
+			return ["test-model","new-model"];
 		});
+
+		console.log(linkmodel);
 
 		//Download model files
 		const getModelUrl = async (fileRef) => {
@@ -64,9 +69,10 @@ function App() {
 		const fetchModels = async () => {
 			//Storage URL
 			const storage = getStorage();
-			const modelRef = ref(storage, 'test-model/model.json');
-			const metaRef = ref(storage, 'test-model/model_meta.json');
-			const weightRef = ref(storage, 'test-model/model.weights.bin');
+
+			const modelRef = ref(storage, linkmodel + '/model.json');
+			const metaRef = ref(storage, linkmodel + '/model_meta.json');
+			const weightRef = ref(storage, linkmodel + '/model.weights.bin');
 
 			//Get all data to modelInfo
 			modelInfo.model = await getModelUrl(modelRef);
@@ -79,11 +85,12 @@ function App() {
 			await fetchModels().then(() => {
 
 				//Initialize model
-				model = ml5.neuralNetwork(options);
+				//model = ml5.neuralNetwork(options);
 
 				//Load trained model data
 				model.load(modelInfo, () => {
 					console.log("Main Model loaded!");
+					//console.log(ml5.neuralNetwork.model);
 					setData(prev => {
 						return {...prev, model: model};
 					});
@@ -104,17 +111,20 @@ function App() {
 		});
 
 		//Initialize poseNet
-		poseNet = ml5.poseNet(video, () => {
-			console.log("Main PoseNet Ready!");
-			setData(prev => {
-				return {...prev, poseNet: poseNet};
+		if(poseNet===undefined) {
+			console.log(poseNet);
+			poseNet = ml5.poseNet(video, () => {
+				console.log("Main PoseNet Ready!");
+				console.log(poseNet);
+				setData(prev => {
+					return {...prev, poseNet: poseNet};
+				});
 			});
-		});
+			//poseNet.removeListener('pose', poseDetected);
+			poseNet.on('pose', poseDetected);
+		}
 
-		poseNet.on('pose', poseDetected);
-
-
-	},[]);
+	},[linkmodel]);
 
 	function poseDetected(poses){
 		let data, currentPose, skeleton;
@@ -133,7 +143,7 @@ function App() {
 				data.push(x);
 				data.push(y);
 			}
-
+			console.log(model);
 			model.classify(data, (err, res) => {
 				// console.log(res[0].label + " | " + res[0].confidence);
 				//FIXME Pick better formatting for output
@@ -151,13 +161,14 @@ function App() {
 
 
     return (
-		<ModelContext.Provider value={{data, setData, list}}>
+		<ModelContext.Provider value={{data, setData, list, setLinkmodel}}>
 			<LabelContext.Provider value={label}>
 				<BrowserRouter>
 					<div id="cover_everything">
 					<MainNavbar/>
 					<Routes>
 						<Route index element={<VideoFeed/>}/>
+						<Route path="/:modeltype" element={<VideoFeed/>}/>
 						<Route element={<SessionRoute />}>
 							<Route path="/login" element={<Login/>}/>
 						</Route>

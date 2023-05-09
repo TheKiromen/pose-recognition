@@ -6,7 +6,16 @@ import {useContext} from "react";
 import {ModelContext} from "../Context/ModelContext";
 import {LabelContext} from "../Context/LabelContext";
 import {ListGroup} from "react-bootstrap";
+import {useParams} from "react-router-dom";
+import {getStorage} from "firebase/storage";
+import {app} from "../Firebase/FirebaseConfig";
 
+// const User = () => {
+//     const { modeltype } = useParams();
+//     let proba = {modeltype}
+//     //console.log(proba.modeltype);
+//     return proba;
+// }
 
 function VideoFeed() {
 
@@ -17,6 +26,14 @@ function VideoFeed() {
     let poseSkeleton = context.data.skeleton;
     let list = context.list;
 
+    //console.log(User().modeltype);
+
+    // function NameModel() {
+    //     const {modeltype} = useParams();
+    //     let proba = {modeltype}
+    //     //console.log(proba.modeltype);
+    //     return proba;
+    // }
 
     const setup = (p5, canvasRef) => {
         p5.createCanvas(640, 480).parent(canvasRef);
@@ -62,7 +79,6 @@ function VideoFeed() {
             }
         }
 
-        // console.log(labelContext);
 
     }
 
@@ -72,21 +88,23 @@ function VideoFeed() {
             <Sketch setup={setup} draw={draw}/>
             <div id="model_label"><b>Avaiable models:</b></div>
             <div id="centering_id">
-                <ListGroup defaultActiveKey="#link0">
+                <ListGroup defaultActiveKey=":link0">
                     {
                         list.map((label, i) => {
                             return (
-                                <ListGroup.Item action href={"#link"+i}>
+                                <ListGroup.Item action href={":link"+i}>
                                     {label}
                                 </ListGroup.Item>
                             )
                         })
                     }
                 </ListGroup>
+                <button onClick={() => context.setLinkmodel("new_model")}>CLICK</button>
             </div>
         </Container>
     );
 }
 
 export default VideoFeed;
+// export {User};
 
